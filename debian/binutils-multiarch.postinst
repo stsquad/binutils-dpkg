@@ -46,7 +46,3 @@ old_diversion /usr/lib/ldscripts
 
 rm -f /usr/lib/libbfd-*-multiarch.so.0
 rm -f /usr/lib/libopcodes-*-multiarch.so.0
-
-if [ "$1" = "configure" ]; then
-	ldconfig
-fi

@@ -15,7 +15,6 @@
 157_ar_scripts_with_tilde.patch
 #158_ld_system_root.patch
 161_gold_dummy_zoption.diff
-170_doc_fixes.diff
 
 # only applied for GFDL builds
 164_ld_doc_remove_xref.diff
@@ -26,15 +25,7 @@ aarch64-libpath.diff
 mips64-default-n64.diff
 
 # patches taken from the trunk
-aarch64-gold-updates.diff
-aarch64-gold-updates2.diff
-aarch64-bogus-assertion.diff
-aarch64-enable-targets.diff
-arm-ld-unique-tests.diff
-aarch64-thunderx.diff
-pr18427.diff
-fix-Bsymbolic-functions.diff
-pr18750.diff
-pr18668.diff
-pr18855.diff
-pr18867.diff
+zlib-1.2.8.diff
+pr19886.diff
+vulcan-name.patch
+vulcan-features.patch

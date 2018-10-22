@@ -43,7 +43,3 @@ for prog in nm objdump objcopy strings strip size \
 do
 	diversion 2.9.5.0.16-1 "/usr/bin/$prog"
 done
-
-if [ "$1" = "remove" ]; then
-	ldconfig
-fi

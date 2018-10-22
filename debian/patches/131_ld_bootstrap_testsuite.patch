@@ -34,7 +34,7 @@ Index: b/ld/testsuite/ld-bootstrap/bootstrap.exp
      # If we only have a shared libbfd, we probably can't run the
      # --static test.
      if { $flags == "--static" && ! [string match "*libbfd.a*" $BFDLIB] } then {
-@@ -127,6 +141,10 @@ foreach flags $test_flags {
+@@ -134,6 +148,10 @@ foreach flags $test_flags {
  	}
      }
  

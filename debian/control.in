@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
 Uploaders: James Troup <james@nocrew.org>, Daniel Jacobowitz <dan@debian.org>
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Build-Depends: autoconf (>= 2.64), @dpkg_dev@
   bison, flex, gettext, texinfo, dejagnu, quilt, chrpath,
   python3:any, file, xz-utils, lsb-release, zlib1g-dev
@@ -17,7 +17,8 @@ Depends: ${shlibs:Depends}
 Conflicts: gas, elf-binutils, modutils (<< 2.4.19-1), ${extraConflicts},
   binutils-gold	(<< 2.20.51.20100415)
 Breaks: binutils-mingw-w64-i686 (<< 2.23.52.20130612-1+3),
-  binutils-mingw-w64-x86-64 (<< 2.23.52.20130612-1+3)
+  binutils-mingw-w64-x86-64 (<< 2.23.52.20130612-1+3),
+  hardening-wrapper (<< 2.8)
 Replaces: binutils-gold (<< 2.20.51.20100415),
   binutils-mingw-w64-i686 (<< 2.23.52.20130612-1+3),
   binutils-mingw-w64-x86-64 (<< 2.23.52.20130612-1+3)

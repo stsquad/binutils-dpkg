@@ -1,3 +1,212 @@
+binutils (2.26.1-1) unstable; urgency=medium
+
+  * binutils 2.26.1 release.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 30 Jun 2016 10:37:37 +0200
+
+binutils (2.26-12) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160624.
+    - Fix PR ld/20254 (AVR), PR ld/20221 (AVR), PR ld/20244 (x86).
+    - Support for three more new POWER9 instructions.
+  * Cherry pick backports for AArch64 vulcan support (Dann Frazier).
+    LP: #1594452.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 24 Jun 2016 10:42:57 +0200
+
+binutils (2.26-11) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160610.
+    - Fix PR ld/20159, reverting the change for PR ld/16467.
+  * Use ldconfig triggers instead of calling ldconfig directly.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 10 Jun 2016 18:37:39 +0200
+
+binutils (2.26-10) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160601.
+    - Fix PR ld/20117, PR ld/20030, PR ld/20093.
+    - Support for a few more new POWER9 instructions.
+  * Build for N32 and MIPS r6 (YunQiang Su). Closes: #807377.
+  * Mark cross binutils as M-A: foreign (Helmut Grohne). Closes: #824424.
+  * More reproducible build fixes (Chris Lamb). Closes: #824413.
+  * Fix PR ld/19886, --as-needed regression, taken from the trunk.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 01 Jun 2016 21:31:32 +0200
+
+binutils (2.26-9) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160512.
+    - Fix PR ld/19878, PR ld/19827, PR gas/19909, PR ld/20006, PR gold/19047,
+      PR gas/20047,  PR 20060.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 12 May 2016 16:59:29 +0200
+
+binutils (2.26-8) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160321.
+    - Fix PR ld/19827.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 21 Mar 2016 15:38:30 +0100
+
+binutils (2.26-7) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160316.
+    - Fix PR ld/19623. Closes: #817891, PR ld/19539, PR binutils/19523.
+  * Fix cross-building from any-i386 (Samuel Thibault). Closes: #816128.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 16 Mar 2016 10:21:59 +0100
+
+binutils (2.26-6) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160310.
+    - Fix PR ld/19579, PR ld/19752, PR ld/19739.
+    - Fix PR binutils/19775. Closes: #813006.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 10 Mar 2016 13:08:38 +0100
+
+binutils (2.26-5) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160213.
+    - Fix PR ld/19698, PR ld/19553, ppc64 and AArch64 fixes.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 26 Feb 2016 17:07:29 +0100
+
+binutils (2.26-4) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160213.
+    - Fix PR ld/19615, PR ld/19601 (closes: #812858), PR gas/19520.
+  * Fix stripping packages for cross builds. Closes: #813337.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 13 Feb 2016 17:13:00 +0100
+
+binutils (2.26-3) unstable; urgency=medium
+
+  * Update, taken from the 2.26 branch 20160203.
+  * Fix PR binutils/19523, objdump not supporting gnu_debuglink with
+    compressed debug sections; taken from the trunk. Closes: #812089.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 03 Feb 2016 15:11:43 +0100
+
+binutils (2.26-2) unstable; urgency=medium
+
+  * Do a release build, not enabled upstream for the release.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 27 Jan 2016 18:22:45 +0100
+
+binutils (2.26-1) unstable; urgency=medium
+
+  * binutils 2.26 release.
+    - Fix PR 19421, reverting the fix for PR 4317. Closes: #808246.
+  * Fix build failure with new coreutils. Closes: #812846.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 27 Jan 2016 12:36:00 +0100
+
+binutils (2.25.90.20160101-2) unstable; urgency=medium
+
+  * Apply proposed patch for PR ld/19368. Closes: #807974.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 05 Jan 2016 17:32:06 +0100
+
+binutils (2.25.90.20160101-1) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.26 branch (20160101).
+  * PR gas/19359, work around a GCC issue on POWER8.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 01 Jan 2016 13:40:16 +0100
+
+binutils (2.25.90.20151209-1) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.26 branch (20151209).
+  * Fix cross build dependencies. Closes: #807378.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 09 Dec 2015 12:41:22 +0100
+
+binutils (2.25.90.20151125-2) unstable; urgency=medium
+
+  * Add ARMv8.1 Virtualization Host Extensions support, taken from the trunk.
+  * Import zlib 1.2.8, taken from the trunk.
+  * Filter the date/user line from the cross binutils test results.
+    Closes: #806490.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 30 Nov 2015 11:52:26 +0100
+
+binutils (2.25.90.20151125-1) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.26 branch (20151125).
+    - Fixed stack overflow TEMP-0000000-A2945B.
+  * Build ppc64el binutils on ppc64.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 25 Nov 2015 14:19:39 +0100
+
+binutils (2.25.51.20151113-2) unstable; urgency=medium
+
+  * Backport patches from the trunk:
+    - Fix PR ld/19263, segfault for s390_elf. Closes: #805237.
+    - Fix PR ld/19264, account for .tbss alignment when adjusting start
+      of relro. LP: #1516444.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 19 Nov 2015 14:16:15 +0100
+
+binutils (2.25.51.20151113-1) unstable; urgency=medium
+
+  * Snapshot, taken from the just created 2.26 branch (20151113).
+    - Fixed PR ld/19123. Closes: #801879.
+    - Ignore relocations in .data.rel.ro.local (hppa). Closes: #801531.
+    - Fix PR gas/19217, wrong use of MOVT to replace LDR (ARM32). LP: #1513985.
+  * Stop building gold on sparc and sparc64. Closes: #803474.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 13 Nov 2015 11:08:24 +0100
+
+binutils (2.25.51.20151106-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20151106.
+  * Work around PR ld/19188, internal linker error. LP: #1511542.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 06 Nov 2015 18:44:09 +0100
+
+binutils (2.25.51.20151028-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20151028.
+    - Fix PR ld/19171 (LP: #1510067), PR ld/19175 (LP: #1510270).
+  * Revert the fix for PR gold/19119, fixing gold on armhf, arm64 and powerpc.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 28 Oct 2015 09:34:03 +0100
+
+binutils (2.25.51.20151021-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20151021.
+  * binutils-i686-gnu: Don't ship ldscripts.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 21 Oct 2015 19:46:24 +0200
+
+binutils (2.25.51.20151020-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20151020.
+  * Build cross packages for debian port architectures.
+  * Move libraries into the multiarch libdir.
+  * Include gold on KFreeBSD.
+  * Install the gnu-triplet prefixed binaries and manual pages as files,
+    and provide non-prefixed symlinks.
+  * Add a breaks in binutils for hardening-wrapper (<< 2.8); the diversions
+    need to be adopted for the real files.
+  * Don't ship windows related manual pages.
+  * Change the search order for ld to first search in /usr/lib*,
+    then in /usr/<gnu-triplet>/lib*.
+  * Run the testsuite for all cross targets.
+  * Configure with --disable-compressed-debug-sections.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 21 Oct 2015 01:14:01 +0200
+
+binutils (2.25.51.20151014-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20151014.
+  * Explicitly configure --with-system-zlib.
+  * Disable compressed debug sections on x86. See PR gas/19109.
+  * Configure cross builds with --enable-initfini-array.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 15 Oct 2015 01:18:36 +0200
+
 binutils (2.25.1-7) unstable; urgency=medium
 
   * Fix PR ld/18867, ld reloc sorting causing glibc to crash on alpha.

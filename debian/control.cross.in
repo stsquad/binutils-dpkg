@@ -3,8 +3,10 @@ Package: binutils-@target@
 Architecture: @host_archs@
 Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
 Suggests: binutils-doc (= ${source:Version})
+Provides: @binutils_alt_triplet@
 Priority: extra
 Built-Using: ${Built-Using}
+Multi-Arch: foreign
 Description: GNU binary utilities, for @target@ target
  This package provides GNU assembler, linker and binary utilities
  for @target@ target, for use in a cross-compilation environment.
