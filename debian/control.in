@@ -2,13 +2,15 @@ Source: binutils
 Section: devel
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
-Uploaders: James Troup <james@nocrew.org>, Daniel Jacobowitz <dan@debian.org>
+Uploaders: James Troup <binutils@elmo.tasta.io>, Daniel Jacobowitz <dan@debian.org>
 Standards-Version: 3.9.8
 Build-Depends: autoconf (>= 2.64), @dpkg_dev@
   bison, flex, gettext, texinfo, dejagnu, quilt, chrpath,
   python3:any, file, xz-utils, lsb-release, zlib1g-dev
-Vcs-Browser: https://code.launchpad.net/~doko/binutils/pkg-2.25-debian
-Vcs-Bzr: http://bazaar.launchpad.net/~doko/binutils/pkg-2.25-debian
+Build-Conflicts: libelf-dev
+Homepage: https://www.gnu.org/software/binutils/
+Vcs-Browser: https://code.launchpad.net/~doko/binutils/pkg-2.28-debian
+Vcs-Bzr: http://bazaar.launchpad.net/~doko/binutils/pkg-2.28-debian
 XS-Testsuite: autopkgtest
 
 Package: binutils
@@ -90,6 +92,7 @@ Description: GNU assembler, linker and binary utilities targeted for hppa64-linu
 Package: binutils-doc
 Section: doc
 Architecture: all
+Multi-Arch: foreign
 Priority: optional
 Depends: dpkg (>= 1.15.4) | install-info
 Conflicts: binutils (<< 2.9.1.0.25-3)
@@ -100,6 +103,7 @@ Description: Documentation for the GNU assembler, linker and binary utilities
 
 Package: binutils-source
 Architecture: all
+Multi-Arch: foreign
 Priority: optional
 Depends: texinfo, zlib1g-dev, make, python
 Description: GNU assembler, linker and binary utilities (source)

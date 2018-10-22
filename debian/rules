@@ -85,7 +85,7 @@ ifeq ($(src_name),binutils)
   CROSS_ARCHS	?= s390x ppc64el powerpc arm64 armhf armel mips mipsel
   CROSS_ARCHS	+= alpha hppa m68k mips64 mips64el powerpcspe ppc64 sh4 sparc64
   CROSS_ARCHS	+= mipsn32 mipsn32el
-  CROSS_ARCHS	+= mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+  #CROSS_ARCHS	+= mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
   #CROSS_ARCHS	+= kfreebsd-amd64 kfreebsd-i386 hurd-i386
 else
   # binutils-ports ...
@@ -205,6 +205,8 @@ with_multiarch := yes
 CC     = gcc
 CXX    = g++
 CFLAGS = -g -O2
+CXXFLAGS = -g -O2
+LDFLAGS =
 STRIP  = strip --remove-section=.comment --remove-section=.note
 CROSS :=
 ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
@@ -276,6 +278,9 @@ ifneq (,$(findstring nomult,$(DEB_BUILD_OPTIONS)))
 endif
 ifneq (,$(findstring nocross,$(DEB_BUILD_OPTIONS)))
   with_cross = disabled in DEB_BUILD_OPTIONS
+endif
+ifneq (,$(findstring nohppa,$(DEB_BUILD_OPTIONS)))
+  with_hppa64 = disabled in DEB_BUILD_OPTIONS
 endif
 
 # PF is the installation prefix for the package without the leading slash.
@@ -568,7 +573,7 @@ endif
 
 	rm -rf stamps/configure-single builddir-single
 	mkdir builddir-single
-	cd builddir-single && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" \
+	cd builddir-single && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" \
 		$(call SET_MULTIARCH_ENV,$(DEB_HOST_ARCH)) \
 		../configure --with-sysroot=/ $(SINGLE_CONFARGS)
 	$(MAKE) -C builddir-single configure-host
@@ -668,7 +673,7 @@ stamps/configure-multi: stamps/patch
 		builddir-multi
 	mkdir builddir-multi
 	cd builddir-multi \
-	    && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" \
+	    && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" \
 	        $(call SET_MULTIARCH_ENV,$(DEB_HOST_ARCH)) \
 		../configure $(CONFARGS) \
 		  --with-sysroot=/ \
@@ -720,7 +725,8 @@ stamps/build.%: stamps/configure.%
 	  $(call SET_MULTIARCH_ENV,$*) \
 	  $(MAKE) -C builddir-$* $(NJOBS) \
 		CFLAGS="$(CFLAGS)" \
-		LDFLAGS="-Wl,-z,relro"
+		CXXFLAGS="$(CXXFLAGS)" \
+		LDFLAGS="$(LDFLAGS) -Wl,-z,relro"
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 ifeq ($(with_check),yes)
 	-env MAKE="$(MAKE) VERSION=$(VERSION)-$*" \
@@ -769,6 +775,9 @@ stamps/install.%: stamps/build.% $(if $(CROSS),debian/strip.cross)
 
 	: # no spu toolchain
 	rm -f $(D_CROSS)/$(PF)/bin/*embedspu
+
+	: # Remove windows related manpages
+	rm -f $(D_CROSS)/$(PF)/share/man/man1/$(CROSS_GNU_TYPE)-{dlltool,nlmconv,windmc,windres}.1
 
 	: # symlink man pages
 	mv $(D_CROSS)/$(PF)/share/man/man1/$(CROSS_GNU_TYPE)-ld.1 \
@@ -829,7 +838,7 @@ stamps/configure-hppa64: stamps/patch
 		builddir-hppa64
 	mkdir builddir-hppa64
 	cd builddir-hppa64 \
-	    && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" ../configure \
+	    && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" ../configure \
 		$(filter-out --enable-targets=%, $(CONFARGS)) \
 		--target=hppa64-linux-gnu
 	$(MAKE) -C builddir-hppa64 configure-host
@@ -918,7 +927,10 @@ stamps/install: checkroot stamps/build $(install_stamps) $(if $(CROSS),debian/st
 	: # install binutils and -dev stuff
 	env MAKE="$(MAKE) VERSION=$(SINGLE_VERSION)" \
 	  $(MAKE) -C builddir-single \
-		CFLAGS="$(CFLAGS)" prefix=$(pwd)/$(d_bin)/$(PF) \
+		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		LDFLAGS="$(LDFLAGS)" \
+		prefix=$(pwd)/$(d_bin)/$(PF) \
 		mandir=$(pwd)/$(d_bin)/$(PF)/share/man \
 		infodir=$(pwd)/$(d_doc)/$(PF)/share/info install
 
@@ -927,6 +939,8 @@ ifeq ($(with_multiarch),yes)
 	env MAKE="$(MAKE) VERSION=$(MULTI_VERSION)" \
           $(MAKE) -C builddir-multi \
 		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		LDFLAGS="$(LDFLAGS)" \
 		prefix=$(pwd)/$(d_mul)/$(PF) \
 		mandir=$(pwd)/$(d_mul)/$(PF)/share/man \
 		infodir=$(pwd)/$(d_doc)/$(PF)/share/info install
@@ -959,7 +973,7 @@ endif
 	: # *sigh*, bugs.debian.org/213524
 	rm -f $(d_doc)/$(PF)/share/info/dir*
 
-ifneq (,$(filter $(DEB_HOST_ARCH),powerpc ppc64 ppc64el))
+ifneq (,$(filter $(DEB_HOST_ARCH),powerpc powerpcspe ppc64 ppc64el))
 	rm -f $(d_bin)/$(PF)/bin/embedspu
 endif
 
@@ -984,7 +998,7 @@ ifeq ($(with_multiarch),yes)
 	rm -f $(d_mul)/$(PF)/bin/ld.bfd
 	rm -f $(d_mul)/$(PF)/bin/ld.gold
 
-  ifneq (,$(filter $(DEB_HOST_ARCH),powerpc ppc64 ppc64el))
+  ifneq (,$(filter $(DEB_HOST_ARCH),powerpc powerpcspe ppc64 ppc64el))
 	rm -f $(d_mul)/$(PF)/bin/embedspu
   endif
 
@@ -1107,7 +1121,7 @@ endif
 		$(d_bin)/$(PF)/share/man/man1/ld.bfd.1
 	ln -sf ld.bfd $(d_bin)/$(PF)/bin/ld
 	ln -sf $(DEB_HOST_GNU_TYPE)-ld.bfd $(d_bin)/$(PF)/bin/$(DEB_HOST_GNU_TYPE)-ld
-	ln -sf ld.bfd.1.fz $(d_bin)/$(PF)/share/man/man1/ld.1.gz
+	ln -sf ld.bfd.1.gz $(d_bin)/$(PF)/share/man/man1/ld.1.gz
 	ln -sf $(DEB_HOST_GNU_TYPE)-ld.bfd.1.gz $(d_bin)/$(PF)/share/man/man1/$(DEB_HOST_GNU_TYPE)-ld.1.gz
 ifeq ($(with_gold),yes)
 	ln -s ld.gold $(d_bin)/$(PF)/bin/gold
@@ -1208,6 +1222,8 @@ stamps/install-hppa64: checkroot stamps/build-hppa64 $(if $(CROSS),debian/strip.
 	env MAKE="$(MAKE) VERSION=$(HPPA64_VERSION)" \
           $(MAKE) -C builddir-hppa64 \
 		CFLAGS="$(CFLAGS)" \
+		CXXFLAGS="$(CXXFLAGS)" \
+		LDFLAGS="$(LDFLAGS)" \
 		prefix=$(pwd)/$(d_hppa64)/$(PF)/ \
 		mandir=$(pwd)/$(d_hppa64)/$(PF)/share/man \
 		infodir=$(pwd)/$(d_hppa64)/$(PF)/share/info install
@@ -1636,7 +1652,7 @@ stamps/configure-cross: stamps/patch
 	rm -rf stamps/configure-cross builddir-$(TARGET)
 	mkdir builddir-$(TARGET)
 	cd builddir-$(TARGET) \
-	    && env CC="$(CC)" CXX="$(CXX)" ../configure \
+	    && env CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)" ../configure \
 		$(CONFARGS) \
 		--target=$(TARGET)
 	touch $@
@@ -1645,7 +1661,8 @@ stamps/build-cross: stamps/configure-cross
 	$(checkdir)
 	test "" != "$(TARGET)"
 	env MAKE="$(MAKE) VERSION=$(VERSION)-$(DEB_TARGET_ARCH)" \
-	  $(MAKE) -C builddir-$(TARGET) $(NJOBS) CFLAGS="$(CFLAGS)"
+	  $(MAKE) -C builddir-$(TARGET) $(NJOBS) \
+		CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)"
 	touch $@
 
 stamps/install-cross: stamps/build-cross
@@ -1675,13 +1692,15 @@ stamps/install-cross: stamps/build-cross
 stamps/configure-host-cross: stamps/configure-cross
 	$(checkdir)
 	test "" != "$(TARGET)"
-	$(MAKE) configure-host -C builddir-$(TARGET) $(NJOBS) CFLAGS="$(CFLAGS)"
+	$(MAKE) configure-host -C builddir-$(TARGET) $(NJOBS) \
+		CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS)"
 	touch $@
 
 stamps/build-static-cross: stamps/configure-host-cross
 	$(checkdir)
 	test "" != "$(TARGET)"
-	$(MAKE) -C builddir-$(TARGET) $(NJOBS) CFLAGS="$(CFLAGS)" LDFLAGS="-all-static"
+	$(MAKE) -C builddir-$(TARGET) $(NJOBS) \
+		CFLAGS="$(CFLAGS)" CXXFLAGS="$(CXXFLAGS)" LDFLAGS="$(LDFLAGS) -all-static"
 	touch $@
 
 stamps/install-static-cross: stamps/build-static-cross stamps/install-cross
@@ -1715,6 +1734,7 @@ endef
 endif
 
 remove-gfdl-files:
+	rm -rf .git* .cvs* gdb libdecnumber readline sim
 ifeq ($(GFDL_INVARIANT_FREE),yes)
 	for i in $(gfdl_toplevel_texinfo_files); do \
 	  if [ -f $$i ]; then \

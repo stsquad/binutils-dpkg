@@ -4,21 +4,21 @@ Index: b/gold/options.h
 ===================================================================
 --- a/gold/options.h
 +++ b/gold/options.h
-@@ -1345,6 +1345,9 @@ class General_options
-   DEFINE_bool_alias(textoff, text, options::DASH_Z, '\0',
- 		    N_("Permit relocations in read-only segments (default)"),
+@@ -1359,6 +1359,9 @@ class General_options
+ 		    options::TWO_DASHES, '\0',
+ 		    N_("Report unresolved symbols as errors"),
  		    NULL, true);
 +  DEFINE_bool(buildd, options::DASH_Z, '\0', false,
 +	      N_("Dummy z option"),
 +	      NULL);
  
-  public:
-   typedef options::Dir_list Dir_list;
+   DEFINE_bool(wchar_size_warning, options::TWO_DASHES, '\0', true, NULL,
+ 	      N_("(ARM only) Do not warn about objects with incompatible "
 Index: b/gold/options.cc
 ===================================================================
 --- a/gold/options.cc
 +++ b/gold/options.cc
-@@ -918,6 +918,8 @@ parse_short_option(int argc, const char*
+@@ -967,6 +967,8 @@ parse_short_option(int argc, const char*
      {
        int dummy_i = 0;
        const char* dash_z_arg = *arg;

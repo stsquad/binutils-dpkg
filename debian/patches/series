@@ -1,5 +1,5 @@
 branch-updates.diff
-branch-version.diff
+#branch-version.diff
 001_ld_makefile_patch.patch
 002_gprof_profile_arcs.patch
 003_gprof_see_also_monitor.patch
@@ -25,9 +25,29 @@ aarch64-libpath.diff
 #pr-ld-16428.diff
 mips64-default-n64.diff
 gold-mips.diff
-mips-pt-gnu-stack.diff
-pr20649.diff
+ld-new-dtags-by-default.diff
+pr21074-revert.diff
+i18n-fr.diff
 
 # patches taken from the trunk
-trunk-ARM32-segfault.diff
-pr20648.diff
+pr21157.diff
+pr21137.diff
+pr21156.diff
+pr21139.diff
+pr21135.diff
+pr70909.diff
+pr21342.diff
+pr21412.diff
+pr21414.diff
+pr21431.diff
+pr21434.diff
+pr21432.diff
+pr21438.diff
+pr21440.diff
+pr21343.diff
+pr21344.diff
+pr21345.diff
+pr21344-2.diff
+#pr21378.diff
+#pr21379.diff
+#pr21379-2.diff

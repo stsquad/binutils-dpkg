@@ -2,13 +2,15 @@ Source: binutils
 Section: devel
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
-Uploaders: James Troup <james@nocrew.org>, Daniel Jacobowitz <dan@debian.org>
+Uploaders: James Troup <binutils@elmo.tasta.io>, Daniel Jacobowitz <dan@debian.org>
 Standards-Version: 3.9.8
 Build-Depends: autoconf (>= 2.64), dpkg-dev (>= 1.17.11),
   bison, flex, gettext, texinfo, dejagnu, quilt, chrpath,
   python3:any, file, xz-utils, lsb-release, zlib1g-dev
-Vcs-Browser: https://code.launchpad.net/~doko/binutils/pkg-2.25-debian
-Vcs-Bzr: http://bazaar.launchpad.net/~doko/binutils/pkg-2.25-debian
+Build-Conflicts: libelf-dev
+Homepage: https://www.gnu.org/software/binutils/
+Vcs-Browser: https://code.launchpad.net/~doko/binutils/pkg-2.28-debian
+Vcs-Bzr: http://bazaar.launchpad.net/~doko/binutils/pkg-2.28-debian
 XS-Testsuite: autopkgtest
 
 Package: binutils
@@ -90,6 +92,7 @@ Description: GNU assembler, linker and binary utilities targeted for hppa64-linu
 Package: binutils-doc
 Section: doc
 Architecture: all
+Multi-Arch: foreign
 Priority: optional
 Depends: dpkg (>= 1.15.4) | install-info
 Conflicts: binutils (<< 2.9.1.0.25-3)
@@ -100,6 +103,7 @@ Description: Documentation for the GNU assembler, linker and binary utilities
 
 Package: binutils-source
 Architecture: all
+Multi-Arch: foreign
 Priority: optional
 Depends: texinfo, zlib1g-dev, make, python
 Description: GNU assembler, linker and binary utilities (source)
@@ -371,87 +375,3 @@ Description: GNU binary utilities, for mips64el-linux-gnuabin32 target
  .
  You don't need this package unless you plan to cross-compile programs
  for mips64el-linux-gnuabin32.
-
-Package: binutils-mipsisa32r6-linux-gnu
-Architecture: amd64 i386 x32
-Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
-Suggests: binutils-doc (= ${source:Version})
-Provides: 
-Priority: extra
-Multi-Arch: foreign
-Description: GNU binary utilities, for mipsisa32r6-linux-gnu target
- This package provides GNU assembler, linker and binary utilities
- for mipsisa32r6-linux-gnu target, for use in a cross-compilation environment.
- .
- You don't need this package unless you plan to cross-compile programs
- for mipsisa32r6-linux-gnu.
-
-Package: binutils-mipsisa32r6el-linux-gnu
-Architecture: amd64 i386 x32
-Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
-Suggests: binutils-doc (= ${source:Version})
-Provides: 
-Priority: extra
-Multi-Arch: foreign
-Description: GNU binary utilities, for mipsisa32r6el-linux-gnu target
- This package provides GNU assembler, linker and binary utilities
- for mipsisa32r6el-linux-gnu target, for use in a cross-compilation environment.
- .
- You don't need this package unless you plan to cross-compile programs
- for mipsisa32r6el-linux-gnu.
-
-Package: binutils-mipsisa64r6-linux-gnuabin32
-Architecture: amd64 i386 x32
-Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
-Suggests: binutils-doc (= ${source:Version})
-Provides: 
-Priority: extra
-Multi-Arch: foreign
-Description: GNU binary utilities, for mipsisa64r6-linux-gnuabin32 target
- This package provides GNU assembler, linker and binary utilities
- for mipsisa64r6-linux-gnuabin32 target, for use in a cross-compilation environment.
- .
- You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6-linux-gnuabin32.
-
-Package: binutils-mipsisa64r6el-linux-gnuabin32
-Architecture: amd64 i386 x32
-Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
-Suggests: binutils-doc (= ${source:Version})
-Provides: 
-Priority: extra
-Multi-Arch: foreign
-Description: GNU binary utilities, for mipsisa64r6el-linux-gnuabin32 target
- This package provides GNU assembler, linker and binary utilities
- for mipsisa64r6el-linux-gnuabin32 target, for use in a cross-compilation environment.
- .
- You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6el-linux-gnuabin32.
-
-Package: binutils-mipsisa64r6-linux-gnuabi64
-Architecture: amd64 i386 x32
-Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
-Suggests: binutils-doc (= ${source:Version})
-Provides: 
-Priority: extra
-Multi-Arch: foreign
-Description: GNU binary utilities, for mipsisa64r6-linux-gnuabi64 target
- This package provides GNU assembler, linker and binary utilities
- for mipsisa64r6-linux-gnuabi64 target, for use in a cross-compilation environment.
- .
- You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6-linux-gnuabi64.
-
-Package: binutils-mipsisa64r6el-linux-gnuabi64
-Architecture: amd64 i386 x32
-Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
-Suggests: binutils-doc (= ${source:Version})
-Provides: 
-Priority: extra
-Multi-Arch: foreign
-Description: GNU binary utilities, for mipsisa64r6el-linux-gnuabi64 target
- This package provides GNU assembler, linker and binary utilities
- for mipsisa64r6el-linux-gnuabi64 target, for use in a cross-compilation environment.
- .
- You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6el-linux-gnuabi64.

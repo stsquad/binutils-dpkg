@@ -1,3 +1,327 @@
+binutils (2.28-6) unstable; urgency=medium
+
+  * Update, taken from the 2.28 branch 20170615.
+    - Fix PR ld/19579 (AArch64), handling of relocations against common symbols.
+      Closes: #863152.
+    - Fix PR ld/21523 (ARM32).
+    - Fix PR ld/21529 (ARM32), internal error in linker.
+    - Fix PR ld/21404 (AVR).
+    - Fix PR binutils/21034.
+    - Fix PR gold/21503, gold not creating linker stub symbols on ppc64.
+    - Remove linker option: -z prefix-nop (x86).
+  * Fix several crashes. Addresses: #863674.
+    - PR binutils/21343, readelf crash. CVE-2017-9038.
+    - PR binutils/21345, readelf crash. CVE-2017-9039.
+    - PR binutils/21344, readelf crash. CVE-2017-9041.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 15 Jun 2017 17:46:47 +0200
+
+binutils (2.28-5) unstable; urgency=medium
+
+  * Update, taken from the 2.28 branch 20170510.
+    - RISC-V updates.
+    - Fix PR ld/21334 (MIPS).
+    - VxWorks fix.
+    - Fix PR ld/16044 (CRIS).
+  * Fix PR binutils/21412, global-buffer-overflow in objcopy. CVE-2017-8393.
+  * Fix PR binutils/21414, segfault in objcopy. CVE-2017-8394.
+  * Fix PR binutils/21431, objcopy segfault - null pointer dereferencing.
+    CVE-2017-8395.
+  * Fix PR binutils/21432, heap buffer overflow in objdump. CVE-2017-8396.
+  * Fix PR binutils/21434, heap buffer overflow in objdump. CVE-2017-8397.
+  * Fix PR binutils/21438, heap buffer overflow in printf_common.
+    CVE-2017-8398.
+  * Fix PR binutils/21440, prevent memory exhaustion from a corrupt PE binary
+    with an overlarge number of relocs. CVE-2017-8421.
+  * gold (SPARC): Fix assertion failure relaxing TLS for position-independent
+    executables. Closes: #862017.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 10 May 2017 12:12:53 +0200
+
+binutils (2.28-4) unstable; urgency=medium
+
+  * Update, taken from the 2.28 branch 20170418.
+    - Fix PR ld/21233: Avoid sweeping forced-undefined symbols in section GC.
+    - BFD fix.
+    - Fix PR ld/19579, PR ld/21306, link error with PIE on s390x.
+  * Fix PR binutils/21342, null pointer dereferences when using a link built
+    with clang. Closes: #859989. CVE-2017-7614.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 18 Apr 2017 08:08:02 +0630
+
+binutils (2.28-3) unstable; urgency=medium
+
+  * Update, taken from the 2.28 branch 20170405.
+    - RISC-V updates.
+    - Fix PR binutils/21303 (PPC), objdump doesn't show e200z4 insns.
+    - S/390: Remove vx2 facility flag.
+    - Update -maltivec and -mvsx options to only enable their oldest
+      instructions (PPC).
+    - Add support for the new 'lnia' extended mnemonic (PPC).
+    - Fix ld uninitialized read of script ASSERT data structure.
+  * Fix incorrect library search order on PowerPC, taken from the trunk.
+  * Fix PR ld/21233 (MIPS only), taken from the trunk. Closes: #857017.
+  * Fix a french translation. Closes: #859503.
+  * Fix PR binutils/21157, handling of corrupt STABS enum type strings.
+    Closes: #858324. CVE-2017-7210.
+  * Fix PR binutils/21137, readelf writing to illegal addresses.
+    Closes: #858264. CVE-2017-6965.
+  * Fix PR binutils/21156, illegal memory accesses in readelf.
+    Closes: #858256. CVE-2017-6969.
+  * Fix PR binutils/21139, read-after-free error in readelf.
+    Closes: #858263. CVE-2017-6966.
+  * Fix PR binutils/21135, invalid read of section contents.
+    Closes: #858323. CVE-2017-7209.
+  * Fix PR demangler/70909, libiberty Demangler segfaults. CVE-2016-4491.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 05 Apr 2017 17:48:03 +0200
+
+binutils (2.28-2) unstable; urgency=medium
+
+  * Update, taken from the 2.28 branch 20170307.
+    - Fix PR ld/20519, PR binutils/21224, PR binutils/21124 (all PPC).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 07 Mar 2017 11:09:19 +0100
+
+binutils (2.28-1) unstable; urgency=medium
+
+  * binutils 2.28 release.
+    - S/390: Add support for new cpu architecture - arch12.
+    - S/390: Issue error for overflowing relocs.
+    - Fix PR gas/20744 (PPC32): Correct VLE 16D and SDAREL relocations.
+    - Fix PowerPC ld segfault on script discarding dynamic sections.
+    - Sync libiberty sources with GCC mainline. Fixes PR PR c++/70182,
+      PR c++/77489, PR c++/78761.
+    - Nios2 dynobj handling fixes.
+    - Don't make dynamic .data.rel.ro SEC_READONLY.
+    - PowerPC addpcis fix.
+    - RISC-V updates.
+    - [AArch64] Additional SVE instructions, add a "compnum" feature,
+      add SVE system registers, fix +sve documentation, add separate
+      feature flag for weaker release consistent load insns.
+  * Don't install windows related man pages in cross packages. Closes: #855630.
+  * Fix ld.1 symlink for targets without gold.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 02 Mar 2017 14:39:24 +0100
+
+binutils (2.27.90.20170221-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix Alpha executables segfaulting when linked with -z,now.
+  * Don't install windows related man pages in cross packages. Closes: #855630.
+  * Don't install the embedspu binary for powerpcspe. Closes: #850691.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 21 Feb 2017 13:06:04 +0100
+
+binutils (2.27.90.20170218-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR ld/21000, PR ld/21132 (closes: #855095).
+    - Fix powerpc testsuite source errors.
+    - Fix PR ld/21168, i386: Allow "lea foo@GOT, %reg" in PIC
+    - opcodes: Fix use after free in cgen instruction lookup.
+    - MIPS/BFD: Respect the ELF gABI dynamic symbol table sort requirement.
+    - MIPS/BFD: Use `bfd_size_type' for dynamic symbol table indices.
+    - MIPS/BFD: Streamline hash table references in `mips_elf_sort_hash_table'.
+    - MIPS/BFD: Fix assertion in `mips_elf_sort_hash_table'.
+    - POWER9: Add scv/rfscv instruction support.
+    - RiscV updates.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 18 Feb 2017 05:37:06 +0100
+
+binutils (2.27.90.20170205-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - MIPS/LD/testsuite: Correct relocation addends in VxWorks tests.
+    - MIPS/LD/testsuite: Fix a `tls-multi-got-1-1.s' build failure.
+    - MIPS: Add options to control branch ISA checks.
+    - MIPS/GAS/testsuite: Convert branch local list tests to dump tests.
+    - Fix PR ld/20995 for cris-linux.
+    - gold: Fix PPC64 TOC indirect to TOC relative segfault.
+    - Fix PR ld/21000, support -z relro on hppa. Other hppa updates.
+    - PR binutils/19935: Fix fallout from now-default initfini-array.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 05 Feb 2017 21:05:07 +0100
+
+binutils (2.27.90.20170124-2) unstable; urgency=medium
+
+  * Revert the commit causing PR 21074. Works around #852035.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 26 Jan 2017 18:09:09 +0100
+
+binutils (2.27.90.20170124-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR gold/21054 (closes: #851736).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 24 Jan 2017 15:24:49 +0100
+
+binutils (2.27.90.20170118-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR binutils/21059, PR gas/20992, PR gas/20649,
+      PR binutils/20828 (closes: #844227).
+
+ -- Matthias Klose <doko@debian.org>  Wed, 18 Jan 2017 20:05:43 +0100
+
+binutils (2.27.90.20170114-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR ld/21038, PR ld/20830, PR gold/21040.
+  * Apply proposed patch for PR binutils/20828 (mips). Addresses: #844227.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 14 Jan 2017 11:43:57 +0100
+
+binutils (2.27.90.20170113-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR binutils/20876 (closes: #838875), PR gold/21040,
+      PR gold/21039.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 13 Jan 2017 13:31:53 +0100
+
+binutils (2.27.90.20170109-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR ld/20989.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 09 Jan 2017 11:03:34 +0100
+
+binutils (2.27.90.20161231-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the binutils 2.28 branch.
+    - Fix PR ld/20995, PR binutils/20464, PR binutils/14625, PR gas/10946,
+      PR gold/20996, PR gold/17643.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 31 Dec 2016 02:10:21 +0100
+
+binutils (2.27.51.20161220-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - Fix PR ld/20968 (closes: #848731), PR ld/20908, PR gold/20949,
+      PR gold/14676, PR gold/20983, PR gold/20976, PR gold/20749,
+      PR gold/20522, PR gold/14676, PR gold/16711, PR gold/20717, PR c++/78252.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 20 Dec 2016 09:11:49 +0100
+
+binutils (2.27.51.20161212-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - Implements --push-state/--pop-state for gold.
+    - Fix PR ld/20908, PR ld/20909, PR gas/20898, PR gas/20897, PR gold/20717,
+      PR gold/20834, PR gold/18989, PR ld/20910, PR ld/20911, PR ld/20912,
+      PR ld/20932, PR binutils/20931, PR binutils/20929, PR binutils/20905,
+      PR binutils/20907, PR binutils/20921, PR binutils/20922, PR ld/20925,
+      PR ld/20924, PR binutils/20930, PR ld/20923, PR gas/20901, PR gas/20896,
+      PR gas/20902, PR gas/20904, PR gold/20717, PR gold/16711, PR gold/20878,
+      PR ld/20906.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 12 Dec 2016 13:49:47 +0100
+
+binutils (2.27.51.20161201-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - Update PR ld/20815 (closes: #845690).
+    - Fix PR ld/20868 (AArch64), PR ld/16720 (mips), PR binutils/20891,
+      PR binutils/20892, PR ld/20886 (PPC64), PR gas/20895, PR binutils/20637,
+      PR binutils/20893.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 01 Dec 2016 15:55:10 +0100
+
+binutils (2.27.51.20161127-1) unstable; urgency=high
+
+  * New upstream snapshot, taken from the trunk.
+    - Fix PR target/20737 (ARM32), PR ld/20858.
+  * Revert the fix for PR ld/20815. Addresses: #845690.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 27 Nov 2016 21:00:36 +0100
+
+binutils (2.27.51.20161124-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - Fix PR ld/20815, PR gas/20744, PR gas/20827, PR gold/20346,
+      PR gold/20693.
+  * Fix PR ld/20858, error handling $ORIGIN variable.
+    Closes: #845171, #844847.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 24 Nov 2016 03:34:06 +0100
+
+binutils (2.27.51.20161118-2) unstable; urgency=medium
+
+  * Revert problematic sparc64 GOT patch (closes: #844782).
+
+ -- Matthias Klose <doko@debian.org>  Sat, 19 Nov 2016 13:40:17 +0100
+
+binutils (2.27.51.20161118-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - SPARC updates, ARMv8.3 updates.
+    - Fix PR ld/20675.
+  * Fix typo in debian changelog. Closes: #843710.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 18 Nov 2016 14:11:45 +0100
+
+binutils (2.27.51.20161116-2) unstable; urgency=medium
+
+  * Stop building the mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+    variants; can't continue with this work, because package uploads with
+    these architectures are still rejected.
+  * Add homepage attribute to the control file: Closes: #841432.
+  * ld: enable new dtags by default for linux/gnu targets. Closes: #835859.
+  * Fix PR ld/20827, using proposed patch. Closes: #844378.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 17 Nov 2016 11:56:55 +0100
+
+binutils (2.27.51.20161116-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - Fix PR ld/20789 (AVR), PR ld/20800 (x86), PR target/20737 (AArch64),
+      PR binutils/20801, PR binutils/20814, PR binutils/20751,
+      PR binutils/20794, PR gas/20803 (SPARC), PR gas/20732,
+      PR binutils/20799 (x86), PR binutils/20754 (x86), PR binutils/20701 (x86),
+
+ -- Matthias Klose <doko@debian.org>  Wed, 16 Nov 2016 11:50:32 +0100
+
+binutils (2.27.51.20161108-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    - Fix PR ld/20535 and PR ld/20784.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 08 Nov 2016 12:14:20 +0100
+
+binutils (2.27.51.20161105-2) unstable; urgency=medium
+
+  * Revert fix for PR ld/20535, causing PR ld/20784. Closes: #843339.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 06 Nov 2016 17:36:45 +0100
+
+binutils (2.27.51.20161105-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+  * Disable the work around for the build failure on mips* targets.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 05 Nov 2016 13:12:01 +0100
+
+binutils (2.27.51.20161102-1) unstable; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+    Security issues fixed: CVE-2016-6131, CVE-2016-4493, CVE-2016-4492,
+    CVE-2016-4490, CVE-2016-4489, CVE-2016-4488, CVE-2016-4487, CVE-2016-2226.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 02 Nov 2016 20:38:57 +0100
+
+binutils (2.27.51.20161027-2) experimental; urgency=medium
+
+  * Work around build failure on mips* targets.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 30 Oct 2016 19:35:41 +0200
+
+binutils (2.27.51.20161027-1) experimental; urgency=medium
+
+  * New upstream snapshot, taken from the trunk.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 27 Oct 2016 16:57:21 +0200
+
 binutils (2.27-9) unstable; urgency=medium
 
   * Update, taken from the 2.27 branch 20161014.
@@ -4131,7 +4455,7 @@ binutils (2.9.5.0.12-1) unstable; urgency=low
   * Update Standards version
   * FHS compliance
 
- -- Christopher C. Chimelis <chris@classnet.med.miami.edu>  Sat, 18 Sept 1999 01:21:05 -0400
+ -- Christopher C. Chimelis <chris@classnet.med.miami.edu>  Sat, 18 Sep 1999 01:21:05 -0400
 
 binutils (2.9.5.0.12-0.2) experimental; urgency=low
 
