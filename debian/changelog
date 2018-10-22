@@ -1,3 +1,286 @@
+binutils (2.29.1-13) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20180105.
+    - Fix PR ld/22626, invalid dynindx used for dynamic relocs against
+      section symbols.
+  * Fix cross builds, use host tools (Helmut Grohne). Closes: #883865.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 05 Jan 2018 23:44:48 +0100
+
+binutils (2.29.1-12) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171212.
+    - Fix PR binutils/21118, don't mask X_add_number containing
+      a register number.
+  * Revived from the tombs, build a binutils-ia64-linux-gnu package.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 13 Dec 2017 01:10:25 +0100
+
+binutils (2.29.1-11) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171208.
+    - Fix PR gold/22309.
+  * Build binutils-x86-64-linux-gnu on arm64 and ppc64el. See #883769.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 08 Dec 2017 12:41:16 +0100
+
+binutils (2.29.1-10) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171201.
+    - Fix PR gold/22233, segfault in relocate_erratum_stub on aarch64.
+    - Update local fix for PR gold/20765, internal error in fix_errata on
+      aarch64 (Peter Smith). LP: #1638902.
+  * binutils-source: Depend on python3 instead of python.
+  * Override m68k, powerpcspe and m68k buildd admins to run the testsuite.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 01 Dec 2017 02:34:24 +0100
+
+binutils (2.29.1-9) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171128.
+    - Fix PR ld/22431, powerpc64 ld segfault when .plt discarded.
+    - Fix DWARF reader to use correct size for DW_FORM_ref_addr.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 28 Nov 2017 07:02:24 +0100
+
+binutils (2.29.1-8) unstable; urgency=medium
+
+  * Apply proposed patch for PR gold/22233. Closes: #876786.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 13 Nov 2017 15:45:39 +0100
+
+binutils (2.29.1-7) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171107.
+    - Fix PR ld/22397, PR ld/22300, PR binutils/22348.
+  * Use dwz -m to compress the -dbg packages.
+  * Add a plethora of mips r6 packages ... Closes: #881060.
+  * Provide "long" description for -dbg packages. Closes: #880001.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 08 Nov 2017 12:17:38 +0100
+
+binutils (2.29.1-6) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171022.
+    - [GOLD] Fix powerpc64 optimization of TOC accesses.
+  * Do the extra/optional dance ...
+  * Build debug packages. Closes: #863728.
+  * Fix stripping the binutils-<native triplet> packages.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 22 Oct 2017 22:41:34 +0200
+
+binutils (2.29.1-5) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171017.
+    - Fix PR binutils/22245, undefined behavior in bfd_set_error.
+    - Correct ctor/dtor in init_array/fini_array error value.
+  * Stop installing i586 compat links for i386 builds. Closes: #877791.
+  * Build a binutils-i686-linux-gnu package on amd64 and x32 too.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 17 Oct 2017 11:29:33 +0200
+
+binutils (2.29.1-4) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20171001.
+    - PR ld/22220, BFD linker wrongly marks symbols as PREVAILING_DEF_IRONLY.
+    - PR ld/22199, x86-64: Don't pass output_bfd to info->callbacks->minfo.
+    - [GOLD] Set non-exec stack for ppc64.
+  * Move man/{go,}ld.1.gz to binutils-common (Helmut Grohne). Closes: #877266.
+  * Build-depend on target g++ compilers instead of target gcc compilers.
+  * Fail when string merge can't alloc memory, taken from the trunk.
+    Closes: #874674.
+  * Fix legacy cross builds. Closes: #876677.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 01 Oct 2017 20:16:22 +0200
+
+binutils (2.29.1-3) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170923.
+    - gold: Add --no-relax option.
+    - readelf: Handle E_MIPS_MACH_5900.
+    - gold: PowerPC function address in non-PIC.
+    - Fix PR binutils/22163, PR binutils/22170.
+  * libbinutils: Fix generation of upper dependency for two-number versions.
+  * debian/rules. Remove the old cross build targets.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 23 Sep 2017 14:00:50 +0200
+
+binutils (2.29.1-1) unstable; urgency=medium
+
+  * binutils 2.29.1 release.
+  * Convert to package source format 3.0 (quilt).
+
+ -- Matthias Klose <doko@debian.org>  Wed, 20 Sep 2017 10:11:56 +0200
+
+binutils (2.29-13) unstable; urgency=medium
+
+  * Build again all cross packages.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 19 Sep 2017 13:11:06 +0200
+
+binutils (2.29-12) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170919.
+    - Fix PR ld/21441, PowerPC64 stubs don't match calculated size.
+      Closes: #876134.
+    - Fix PR ld/22048, Incorrect .eh_frame section in libc.so.
+    - Fix PR ld/22150, ld keeps a version reference for gc'd symbols.
+      Closes: #874585. LP: #1715641.
+    - Fix PR ld/22148, Integer overflow in elf64-x86-64.c.
+    - Fix PR ld/21924, Require GCC 5 or above for 3 x86 tests.
+  * Fix installation of test summaries.
+  * Compare test summaries for cross builds.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 19 Sep 2017 13:04:07 +0200
+
+binutils (2.29-10) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170915.
+    - Fix PR binutils/22047 (CVE-2017-14129), PR binutils/22018.
+  * gold on 32bit archs: Release mapped files after each pass.
+  * Build-depend on cross compilers to run the tests for the binutils
+    cross packages.
+  * Install the ldscripts into /usr/lib/<multiarch>/ldscripts and move
+    ldscripts into the binutils-<triplet> packages.
+  * Install the unprefixed manual packages into binutils-common and
+    derive the timestamps from the debian/changelog entry.
+  * binutils-<triplet>: Remove dependency on binutils.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 15 Sep 2017 11:55:58 +0200
+
+binutils (2.29-9) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170906.
+    - Fix PR binutils/22032, PR binutils/21786 (CVE-2017-12451),
+      PR binutils/21787 (CVE-2017-12448), PR binutils/21813 (CVE-2017-12450,
+      CVE-2017-12452, CVE-2017-12453, CVE-2017-12454), PR ld/21824,
+      PR binutils/21916, PR ld/21441, PR ld/22067, PR ld/22064, PR ld/22061,
+      PR binutils/22059 (CVE-2017-14128), PR binutils/21933 (CVE-2017-12799),
+      PR binutils/22060, PR binutils/22058 (CVE-2017-14130), PR binutils/21995,
+      PR binutils/21861, PR binutils/21813 (CVE-2017-12456), PR binutils/21909,
+      PR binutils/21820, PR binutils/21990, PR binutils/21994, PR ld/21441,
+      PR ld/22064, PR ld/22061, PR lto/81968, PR lto/81968, PR lto/81925.
+  * Fix typo in control.in interpolation when TARGET is non-empty (Helmut
+    Grohne). Addresses: #873387.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 06 Sep 2017 08:14:12 +0200
+
+binutils (2.29-8) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170830.
+    - Fix PR gold/21868. Closes: #830540, #869768.
+    - Fix address violation issues when parsing corrupt binaries.
+    - PR gold/21847: Provide symbol flag for PowerPC64 localentry:0 tracking.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 30 Aug 2017 08:03:09 +0200
+
+binutils (2.29-7) unstable; urgency=high
+
+  * Fix binutils dependency on binutils-<triplet> on non amd64 architectures.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 23 Aug 2017 23:51:26 +0200
+
+binutils (2.29-6) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170823.
+    - Fix PR ld/21988, PR ld/21964, PR ld/21910.
+  * readelf: Add patch to read Infinity notes.
+  * Reorganize packages to provide binutils-for-host/binutils-for-build
+    packages (Helmut Grohne). Closes: #842439.
+    - Break out a binutils-common package.
+    - Refactor code to build with DEB_BUILD_OPTIONS=nogold.
+    - Rename gold, ld.gold, ld.bfd to their triplet prefixed equivalents.
+    - Remove shlibs files for hppa64 and cross packages.
+    - Set NATIVE_ARCHS explicitly.
+    - Split out a libbinutils package and binutils-<triplet> packages.
+    - Build binutils-for-host and binutils-for-build packages.
+  * Fix some issues in the above patches.
+  * Mark binutils-common and libbinutils as M-A: same.
+  * Remove obsolete Breaks/Conflicts/Replaces.
+  * Replace FIXME markers with TODO markers. Silly lintian ...
+
+ -- Matthias Klose <doko@debian.org>  Wed, 23 Aug 2017 12:01:12 +0200
+
+binutils (2.29-5) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170820.
+    - Fix PR binutils/21962, buffer overrun when parsing a corrupt tekhex
+      binary.
+    - Fix PR ld/18808: [AArch64] Skip IFUNC relocations in debug sections.
+    - Fix PR ld/18841: [AArch64] ifunc relocation ordering.
+    - [AArch64] Turn lr, fp, ip0 and ip1 into proper aliases.
+    - Fix PR ld/21923.
+  * Build gold on s390x. LP: #1709873.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 20 Aug 2017 19:00:03 +0200
+
+binutils (2.29-4) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170804.
+  * Fix PR ld/21884, taken from the trunk. Do not choose a non-ELF format
+    input file to hold the linker created GOT sections. Closes: #870611.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 07 Aug 2017 08:46:12 -0400
+
+binutils (2.29-3) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170802.
+    - S390 testsuite fixes.
+  * Fix PR ld/21884, taken from the trunk. Closes: #870343.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 02 Aug 2017 14:16:35 +0200
+
+binutils (2.29-2) unstable; urgency=medium
+
+  * Update, taken from the 2.29 branch 20170731.
+    - Fix PR 21847, PowerPC64 --plt-localentry issues.
+    - Fix PR gold/21857, PR ld/21849 (AVR).
+  * Remove Daniel as an uploader. Closes: #869305.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 31 Jul 2017 09:17:30 +0200
+
+binutils (2.29-1) unstable; urgency=medium
+
+  * binutils 2.29 release.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 25 Jul 2017 11:02:19 +0200
+
+binutils (2.28.90.20170718-1) experimental; urgency=medium
+
+  * Snapshot, taken from the 2.29 branch (20170718).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 18 Jul 2017 11:26:15 +0200
+
+binutils (2.28.51.20170703-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20170703).
+    - Addresses CVE-2017-9040, CVE-2017-9042, CVE-2017-9043, CVE-2017-9044,
+      CVE-2017-9742, CVE-2017-9743, CVE-2017-9744, CVE-2017-9745,
+      CVE-2017-9746, CVE-2017-9747, CVE-2017-9748, CVE-2017-9749,
+      CVE-2017-9750, CVE-2017-9751, CVE-2017-9752, CVE-2017-9753,
+      CVE-2017-9754, CVE-2017-9755, CVE-2017-9756, CVE-2017-9954,
+      CVE-2017-9955. Closes: #863674.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 03 Jul 2017 16:08:53 +0200
+
+binutils (2.28.51.20170627-1) experimental; urgency=high
+
+  * Snapshot, taken from the trunk (20170627).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 27 Jun 2017 14:53:24 +0200
+
+binutils (2.28.51.20170620-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20170620).
+    - Addresses issues CVE-2017-9040, CVE-2017-9042, CVE-2017-9043.
+    - ILP32 patches applied upstream. Closes: #861833.
+    - Fixes PR ld/21334 (MIPS), undefined hidden symbols causing assertion
+      failure. Closes: #858898.
+  * Configure with --enable-new-dtags.
+  * Don't revert the commit causing PR 21074.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 20 Jun 2017 15:32:31 +0200
+
 binutils (2.28-6) unstable; urgency=medium
 
   * Update, taken from the 2.28 branch 20170615.

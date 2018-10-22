@@ -2,7 +2,7 @@ Index: b/ld/emulparams/elf32ppccommon.sh
 ===================================================================
 --- a/ld/emulparams/elf32ppccommon.sh
 +++ b/ld/emulparams/elf32ppccommon.sh
-@@ -54,3 +54,12 @@ case "$host":"$EMULATION_NAME" in
+@@ -56,3 +56,12 @@ case `echo "$target" | sed -e 's/-.*//'`
    *:*64*) LIBPATH_SUFFIX=64 ;;
    *:*32*) LIBPATH_SUFFIX=32 ;;
  esac

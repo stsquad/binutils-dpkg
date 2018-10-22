@@ -1,7 +1,7 @@
-Cross-binutils debian packages can be built directly from the binutils
-source package.
+Cross-binutils debian packages are directly built from the binutils
+source package together with the native binutils packages.
 
-To build a cross-binutils package:
+To build a cross-binutils package which is not yet built:
 
  o Download and unpack the binutils source package:
 
@@ -20,7 +20,8 @@ To build a cross-binutils package:
    (substitute your target name, e.g. "arm" or "m68k", instead of
     "<your-target>")
 
----
-Nikita Youshchenko <yoush@cs.msu.su>
+--
 Hector Oron <zumbi@debian.org>
 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+Matthias Klose <doko@debian.org>
+Nikita Youshchenko <yoush@cs.msu.su>

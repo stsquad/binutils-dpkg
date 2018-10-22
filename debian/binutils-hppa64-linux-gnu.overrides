@@ -5,3 +5,6 @@ binutils-hppa64-linux-gnu binary: binary-without-manpage
 binutils-hppa64-linux-gnu binary: package-name-doesnt-match-sonames
 
 binutils-hppa64-linux-gnu binary: non-standard-dir-in-usr
+
+# private library. no -dev package is provided, nothing can link it
+binutils-hppa64-linux-gnu binary: no-shlibs-control-file
