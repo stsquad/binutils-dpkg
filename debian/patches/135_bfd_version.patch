@@ -5,7 +5,7 @@ Index: b/bfd/Makefile.am
 ===================================================================
 --- a/bfd/Makefile.am
 +++ b/bfd/Makefile.am
-@@ -1042,15 +1042,15 @@ DISTCLEANFILES = $(BUILD_CFILES) $(BUILD
+@@ -1048,15 +1048,15 @@ DISTCLEANFILES = $(BUILD_CFILES) $(BUILD
  
  bfdver.h: $(srcdir)/version.h $(srcdir)/development.sh $(srcdir)/Makefile.in
  	@echo "creating $@"
@@ -28,7 +28,7 @@ Index: b/bfd/Makefile.in
 ===================================================================
 --- a/bfd/Makefile.in
 +++ b/bfd/Makefile.in
-@@ -2110,15 +2110,15 @@ stmp-lcoff-h: $(LIBCOFF_H_FILES)
+@@ -2153,15 +2153,15 @@ stmp-lcoff-h: $(LIBCOFF_H_FILES)
  
  bfdver.h: $(srcdir)/version.h $(srcdir)/development.sh $(srcdir)/Makefile.in
  	@echo "creating $@"

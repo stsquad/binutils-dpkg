@@ -1,6 +1,8 @@
+Index: b/bfd/config.bfd
+===================================================================
 --- a/bfd/config.bfd
 +++ b/bfd/config.bfd
-@@ -1086,11 +1086,21 @@
+@@ -1100,11 +1100,21 @@ case "${targ}" in
      targ_defvec=mips_elf32_be_vec
      targ_selvecs="mips_elf32_le_vec mips_elf64_be_vec mips_elf64_le_vec mips_ecoff_be_vec mips_ecoff_le_vec"
      ;;
@@ -24,9 +26,11 @@
      targ_defvec=mips_elf32_ntrad_be_vec
      targ_selvecs="mips_elf32_ntrad_le_vec mips_elf32_trad_be_vec mips_elf32_trad_le_vec mips_elf64_trad_be_vec mips_elf64_trad_le_vec"
      ;;
+Index: b/gas/configure.ac
+===================================================================
 --- a/gas/configure.ac
 +++ b/gas/configure.ac
-@@ -322,7 +322,10 @@
+@@ -344,7 +344,10 @@ changequote([,])dnl
  	esac
  	# Decide which ABI to target by default.
  	case ${target} in
@@ -38,9 +42,11 @@
  	    mips_default_abi=N32_ABI
  	    ;;
  	  mips*-linux* | mips*-freebsd* | mips*-kfreebsd*-gnu)
+Index: b/ld/configure.tgt
+===================================================================
 --- a/ld/configure.tgt
 +++ b/ld/configure.tgt
-@@ -509,10 +509,16 @@
+@@ -513,10 +513,16 @@ mips*el-*-vxworks*)	targ_emul=elf32elmip
  mips*-*-vxworks*)	targ_emul=elf32ebmipvxworks
  		        targ_extra_emuls="elf32elmipvxworks" ;;
  mips*-*-windiss)	targ_emul=elf32mipswindiss ;;
@@ -59,9 +65,11 @@
  			targ_extra_emuls="elf32ltsmipn32 elf32btsmip elf32ltsmip elf64btsmip elf64ltsmip"
  			targ_extra_libpath=$targ_extra_emuls ;;
  mips*el-*-linux-*)	targ_emul=elf32ltsmip
+Index: b/gas/configure
+===================================================================
 --- a/gas/configure
 +++ b/gas/configure
-@@ -12240,7 +12240,10 @@
+@@ -12305,7 +12305,10 @@ _ACEOF
  	esac
  	# Decide which ABI to target by default.
  	case ${target} in

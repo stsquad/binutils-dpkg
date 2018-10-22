@@ -6,6 +6,8 @@
 # some other version of binutils-multiarch is installed.
 # So we remove the diversions in postinst, not preinst.
 set -e
+ma=@DEB_MULTIARCH@
+triplet=@DEB_TRIPLET@
 old_diversion() {
 	local divertto file
 	file=$1
@@ -46,3 +48,33 @@ old_diversion /usr/lib/ldscripts
 
 rm -f /usr/lib/libbfd-*-multiarch.so.0
 rm -f /usr/lib/libopcodes-*-multiarch.so.0
+
+old_diversion /usr/bin/addr2line
+old_diversion /usr/bin/ar
+old_diversion /usr/bin/embedspu
+old_diversion /usr/bin/gprof
+old_diversion /usr/bin/nm
+old_diversion /usr/bin/objcopy
+old_diversion /usr/bin/objdump
+old_diversion /usr/bin/ranlib
+old_diversion /usr/bin/readelf
+old_diversion /usr/bin/size
+old_diversion /usr/bin/strings
+old_diversion /usr/bin/strip
+
+case "$ma" in i386-*)
+  if test -n "$context" && dpkg --compare-versions "$2" lt "2.27-8"; then
+    old_diversion /usr/bin/$ma-addr2line
+    old_diversion /usr/bin/$ma-ar
+    old_diversion /usr/bin/$ma-embedspu
+    old_diversion /usr/bin/$ma-gprof
+    old_diversion /usr/bin/$ma-nm
+    old_diversion /usr/bin/$ma-objcopy
+    old_diversion /usr/bin/$ma-objdump
+    old_diversion /usr/bin/$ma-ranlib
+    old_diversion /usr/bin/$ma-readelf
+    old_diversion /usr/bin/$ma-size
+    old_diversion /usr/bin/$ma-strings
+    old_diversion /usr/bin/$ma-strip
+  fi
+esac

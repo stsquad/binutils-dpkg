@@ -1,0 +1,25 @@
+Author: Balint Reczey <balint@balintreczey.hu>
+Description: Build libbfd with -fPIC to allow linking with PIE binaries
+
+--- ./bfd/Makefile.am.bak	2016-09-10 16:26:46.062371030 +0200
++++ ./bfd/Makefile.am	2016-09-10 16:27:48.913724681 +0200
+@@ -51,7 +51,7 @@
+ 
+ WARN_CFLAGS = @WARN_CFLAGS@
+ NO_WERROR = @NO_WERROR@
+-AM_CFLAGS = $(WARN_CFLAGS) $(ZLIBINC)
++AM_CFLAGS = $(WARN_CFLAGS) $(ZLIBINC) -fPIC
+ AM_CPPFLAGS = -DBINDIR='"$(bindir)"'
+ if PLUGINS
+ bfdinclude_HEADERS += $(INCDIR)/plugin-api.h
+--- ./bfd/Makefile.in.bak	2016-09-10 16:26:53.009857349 +0200
++++ ./bfd/Makefile.in	2016-09-10 16:27:31.886983240 +0200
+@@ -387,7 +387,7 @@
+ # case both are empty.
+ ZLIB = @zlibdir@ -lz
+ ZLIBINC = @zlibinc@
+-AM_CFLAGS = $(WARN_CFLAGS) $(ZLIBINC)
++AM_CFLAGS = $(WARN_CFLAGS) $(ZLIBINC) -fPIC
+ AM_CPPFLAGS = -DBINDIR='"$(bindir)"'
+ @PLUGINS_TRUE@LIBDL = @lt_cv_dlopen_libs@
+ 

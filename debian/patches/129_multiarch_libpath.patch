@@ -286,7 +286,7 @@ Index: b/gold/configure
  DLOPEN_LIBS
  CXXCPP
  HAVE_NO_USE_LINKER_PLUGIN_FALSE
-@@ -7607,6 +7608,14 @@ $as_echo "#define HAVE_LC_MESSAGES 1" >>
+@@ -7676,6 +7677,14 @@ $as_echo "#define HAVE_LC_MESSAGES 1" >>
    fi
  
  
@@ -305,7 +305,7 @@ Index: b/gold/configure.ac
 ===================================================================
 --- a/gold/configure.ac
 +++ b/gold/configure.ac
-@@ -643,6 +643,14 @@ AC_CHECK_HEADERS(locale.h)
+@@ -662,6 +662,14 @@ AC_CHECK_HEADERS(locale.h)
  AC_CHECK_FUNCS(setlocale)
  AM_LC_MESSAGES
  
@@ -344,7 +344,7 @@ Index: b/gold/Makefile.in
 ===================================================================
 --- a/gold/Makefile.in
 +++ b/gold/Makefile.in
-@@ -424,6 +424,7 @@ AM_CPPFLAGS = \
+@@ -489,6 +489,7 @@ AM_CPPFLAGS = \
  	-I$(srcdir) -I$(srcdir)/../include -I$(srcdir)/../elfcpp \
  	-DLOCALEDIR="\"$(datadir)/locale\"" \
  	-DBINDIR="\"$(bindir)\"" -DTOOLBINDIR="\"$(tooldir)/bin\"" \

@@ -19,7 +19,7 @@ Index: b/gold/Makefile.in
 ===================================================================
 --- a/gold/Makefile.in
 +++ b/gold/Makefile.in
-@@ -409,7 +409,7 @@ top_srcdir = @top_srcdir@
+@@ -474,7 +474,7 @@ top_srcdir = @top_srcdir@
  zlibdir = @zlibdir@
  zlibinc = @zlibinc@
  AUTOMAKE_OPTIONS = foreign

@@ -1,3 +1,75 @@
+binutils (2.27-9) unstable; urgency=medium
+
+  * Update, taken from the 2.27 branch 20161014.
+    - Fix PR ld/20608, PR ld/20545, PR gold/20238.
+  * Fix cross build for non-standard cross archs (Helmut Grohne).
+    Closes: #839956.
+  * Fix ld segfault on ARM32, taken from the trunk. Closes: #840374.
+  * Fix PR ld/20648, taken from the trunk. Closes: #835544.
+  * Fix PR ld/20649, using proposed patch. Closes: #834147.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 17 Oct 2016 13:12:51 +0200
+
+binutils (2.27-8) unstable; urgency=medium
+
+  * Fix diversion updates for 32bit x86 targets.
+  * Update Break for hardening-wrapper.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 31 Aug 2016 10:11:22 +0200
+
+binutils (2.27-7) unstable; urgency=medium
+
+  * Update, taken from the 2.27 branch 20160830.
+    - Fix PR ld/20531.
+  * Fix diversion updates. Closes: #834836.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 30 Aug 2016 16:24:37 +0200
+
+binutils (2.27-6) unstable; urgency=high
+
+  * Update, taken from the 2.27 branch 20160819.
+    - Fix PR ld/20472.
+  * binutils-multiarch: Divert the triplet-prefixed names. Closes: #834253.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 19 Aug 2016 07:02:50 +0200
+
+binutils (2.27-5) unstable; urgency=high
+
+  * Update, taken from the 2.27 branch 20160812.
+  * Fix unexecutable MIPS binaries with -Wl,-z,noexecstack (Aurelian Jarno).
+    Closes: #834096.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 12 Aug 2016 09:27:17 +0200
+
+binutils (2.27-4) unstable; urgency=medium
+
+  * Fix gold on mipsr6 targets (Aurelian Jarno).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 09 Aug 2016 21:58:13 +0200
+
+binutils (2.27-3) unstable; urgency=medium
+
+  * Backport patches to fix gold on sparc64 (James Clarke). Closes: #833688.
+  * Fix gold on mips64 targets (Aurelian Jarno). Closes: #833654.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 09 Aug 2016 12:15:51 +0200
+
+binutils (2.27-2) unstable; urgency=medium
+
+  * Disable gold for all mips cross targets too.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 07 Aug 2016 16:30:20 +0200
+
+binutils (2.27-1) unstable; urgency=medium
+
+  * binutils 2.27 release.
+  * Update, taken from the 2.27 branch 20160807.
+  * Re-enable gold on sparc and sparc64. Closes: #818934.
+  * Disable SH64 support for the multilib build.
+  * Disable gold on all mips targets, currently fails to link.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 07 Aug 2016 13:38:27 +0200
+
 binutils (2.26.1-1) unstable; urgency=medium
 
   * binutils 2.26.1 release.
@@ -17,7 +89,7 @@ binutils (2.26-12) unstable; urgency=medium
 binutils (2.26-11) unstable; urgency=medium
 
   * Update, taken from the 2.26 branch 20160610.
-    - Fix PR ld/20159, reverting the change for PR ld/16467.
+    - Fix PR ld/20159, reverting the change for PR ld/16467. LP: #1588123.
   * Use ldconfig triggers instead of calling ldconfig directly.
 
  -- Matthias Klose <doko@debian.org>  Fri, 10 Jun 2016 18:37:39 +0200

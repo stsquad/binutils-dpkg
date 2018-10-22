@@ -192,7 +192,7 @@ gold_targets = \
 	amd64 arm64 armel armhf i386 \
 	mips mipsel mipsn32 mipsn32el mips64 mips64el \
 	mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el \
-	powerpc powerpcspe ppc64 ppc64el \
+	powerpc powerpcspe ppc64 ppc64el sparc sparc64 \
 	x32 kfreebsd-amd64 kfreebsd-i386 hurd-i386
 
 ifneq (,$(filter $(DEB_HOST_ARCH), $(gold_targets)))
@@ -517,6 +517,8 @@ stamps/control: debian/control.in $(if $(TARGET),debian/control.cross.in) $(if $
 ifneq (,$(TARGET))
 	sed "s/@dpkg_dev@/$(DPKG_DEV)/;/^$$/ q" < debian/control.in > debian/control
 	sed -e "s/@target@/$$(echo -n $(TARGET) | sed s/_/-/g)/" \
+		-e "s/@host_archs@/any/" \
+		-e 's/@binutils_alt_triplet@//' \
 		< debian/control.cross.in >> debian/control
 else
 	sed -e 's/@dpkg_dev@/$(DPKG_DEV)/' \
@@ -647,7 +649,6 @@ multiarch_targets = \
 	s390-linux-gnu \
 	s390x-linux-gnu \
 	sh-linux-gnu \
-	sh64-linux-gnu \
 	sparc-linux-gnu \
 	sparc64-linux-gnu \
 	x86_64-linux-gnu \
@@ -708,7 +709,7 @@ stamps/configure.%: stamps/patch
 		  $(CROSS_CONFARGS) \
 		  $(CONFARGS_TARGET_$(*)) \
 		  --with-sysroot=/ \
-		  $(if $(filter $*, $(gold_targets)),--enable-ld=default --enable-gold) \
+		  $(if $(filter $*, $(gold_targets)),--enable-ld=default --enable-gold,--disable-gold) \
 		  --target=$(CROSS_GNU_TYPE)
 	touch $@
 
@@ -1145,6 +1146,16 @@ endif
 	  mv $(d_bin)/$(PF)/share/man/man1/$$i.1 $(d_bin)/$(PF)/share/man/man1/$(DEB_HOST_GNU_TYPE)-$$i.1; \
 	  ln -sf $(DEB_HOST_GNU_TYPE)-$$i.1.gz $(d_bin)/$(PF)/share/man/man1/$$i.1.gz; \
 	done
+ifeq ($(with_multiarch),yes)
+	@echo XXXXXXXXXXXXXXXXXXXXXXXXXXXXxx
+	for i in \
+	  addr2line ar gprof \
+	  nm objcopy objdump ranlib readelf size strings strip; \
+	do \
+	  mv $(d_mul)/$(PF)/bin/$$i $(d_mul)/$(PF)/bin/$(DEB_HOST_GNU_TYPE)-$$i; \
+	done
+	rm -f $(d_mul)/$(PF)/bin/embedspu
+endif
 
 ifneq (,$(filter $(DEB_HOST_ARCH),i386 kfreebsd-i386 hurd-i386))
 # temporary i586-* symlinks for stretch/sid
@@ -1417,6 +1428,8 @@ else
 		-e "s/@DEB_NVER@/$$nver/g" \
 		-e "s/@DATE_EXT@/$$date_ext/g" \
 		-e 's/@DEB_ARCH@/$(DEB_HOST_ARCH)/g' \
+		-e 's/@DEB_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' \
+		-e 's/@DEB_TRIPLET@/$(DEB_HOST_GNU_TYPE)/g' \
 		-e "s/@dpkg_dev@/$(DPKG_DEV)/" \
 		$$i > $${i%*.in}; \
 	    case "$$i" in *.post*|*.pre*) chmod 755 $${i%*.in}; esac; \
