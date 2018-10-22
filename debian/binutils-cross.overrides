@@ -10,3 +10,6 @@
 # yes, intended
 @PKG@ binary: shlib-in-multi-arch-foreign-package
 @PKG@ binary: triplet-dir-and-architecture-mismatch
+
+# some triplets are long ...
+@PKG@ binary: extended-description-line-too-long

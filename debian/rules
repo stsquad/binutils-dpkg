@@ -57,7 +57,7 @@ p_bld = $(p_bin)-for-build
 p_cross = $(p_bin)-$(subst _,-,$(TARGET))
 
 # version used for p_bld/p_hst dependencies
-min_ver = 2.29.1-10
+min_ver = 2.30-2
 
 distribution := $(shell lsb_release -is)
 distrelease  := $(shell lsb_release -cs)
@@ -98,11 +98,12 @@ install_binary = install -m 755 -s --strip-program="$(STRIP)"
 
 NATIVE_ARCHS ?= amd64 i386 arm64 armhf armel mips mipsel mips64el \
 	ppc64el s390x
-NATIVE_ARCHS += alpha hppa ia64 m68k mips64 powerpc powerpcspe ppc64 sh4 sparc64 x32
+NATIVE_ARCHS += alpha hppa ia64 m68k mips64 powerpc powerpcspe ppc64 \
+	riscv64 sh4 sparc64 x32
 NATIVE_ARCHS += hurd-i386 kfreebsd-amd64 kfreebsd-i386
 NATIVE_ARCHS += mipsn32 mipsn32el
 NATIVE_ARCHS += mipsn32r6 mipsn32r6el mipsr6 mipsr6el mips64r6 mips64r6el
-#NATIVE_ARCHS += ia64 nios2 or1k s390 sparc
+#NATIVE_ARCHS += nios2 or1k s390 sparc
 
 src_name := $(shell dpkg-parsechangelog -S Source)
 ifeq ($(src_name),binutils)
@@ -115,22 +116,31 @@ ifeq ($(src_name),binutils)
       CROSS_ARCHS += mips mipsel mips64el
       CROSS_ARCHS += alpha hppa m68k
       CROSS_ARCHS += mips64 mipsn32 mipsn32el
-      CROSS_ARCHS += ia64
       CROSS_ARCHS += powerpc powerpcspe ppc64 sh4 sparc64
       CROSS_ARCHS += mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+      CROSS_ARCHS += ia64 riscv64
       CROSS_ARCHS += kfreebsd-amd64 kfreebsd-i386 hurd-i386
+      ifneq (,$(filter $(DEB_HOST_ARCH), i386 x32))
+        CROSS_ARCHS += amd64
+      endif
       ifneq (,$(filter $(DEB_HOST_ARCH), amd64 x32))
         CROSS_ARCHS += i386
       endif
+      ifneq (,$(filter $(DEB_HOST_ARCH), amd64 i386))
+        CROSS_ARCHS += x32
+      endif
     else ifeq ($(DEB_HOST_ARCH),arm64)
-      CROSS_ARCHS = armel armhf amd64
+      CROSS_ARCHS = armel armhf amd64 i386 x32
     else ifeq ($(DEB_HOST_ARCH),ppc64)
       CROSS_ARCHS = ppc64el
     else ifeq ($(DEB_HOST_ARCH),ppc64el)
-      CROSS_ARCHS = powerpc ppc64 amd64
+      CROSS_ARCHS = powerpc ppc64 amd64 i386 x32
     else
       CROSS_ARCHS =
     endif
+  else
+    # c-t-b passes this one ...
+    CROSS_ARCHS := $(filter-out $(DEB_HOST_ARCH),$(CROSS_ARCHS))
   endif
 else
   # binutils-ports ...
@@ -144,6 +154,15 @@ ifneq (,$(filter $(DEB_HOST_ARCH),amd64 i386 x32 hppa))
   with_hppa64 = yes
 endif
 
+with_multiarch := yes
+
+# only build the basic package when running the autopkg tests
+ifneq (,$(ADT_TEST_TRIGGERS))
+  CROSS_ARCHS :=
+  with_hppa64 :=
+  with_multiarch :=
+endif
+
 HOST_ARCHS_armhf = amd64 i386 x32 arm64
 HOST_ARCHS_armel = amd64 i386 x32 arm64
 HOST_ARCHS_arm64 = amd64 i386 x32
@@ -152,9 +171,10 @@ HOST_ARCHS_mipsel = amd64 i386 x32
 HOST_ARCHS_powerpc = amd64 i386 x32 ppc64el
 HOST_ARCHS_ppc64el = amd64 i386 x32 ppc64
 HOST_ARCHS_s390x = amd64 i386 x32
-HOST_ARCHS_amd64 = arm64 ppc64el
-HOST_ARCHS_i386 = amd64 x32
+HOST_ARCHS_amd64 = arm64 i386 ppc64el x32
+HOST_ARCHS_i386 = amd64 arm64 ppc64el x32
 HOST_ARCHS_ia64 = amd64 i386 x32
+HOST_ARCHS_riscv64 = amd64 i386 x32
 
 HOST_ARCHS_alpha = amd64 i386 x32
 HOST_ARCHS_hppa = amd64 i386 x32
@@ -165,6 +185,7 @@ HOST_ARCHS_powerpcspe = amd64 i386 x32
 HOST_ARCHS_ppc64 = amd64 i386 x32 ppc64el
 HOST_ARCHS_sh4 = amd64 i386 x32
 HOST_ARCHS_sparc64 = amd64 i386 x32
+HOST_ARCHS_x32 = amd64 arm64 i386 ppc64el
 
 HOST_ARCHS_mipsn32 = amd64 i386 x32
 HOST_ARCHS_mipsn32el = amd64 i386 x32
@@ -207,9 +228,11 @@ ifneq (,$(TARGET))
   DPKG_TARGET_VARS := $(shell dpkg-architecture -f -t$(TARGET))
   DEB_TARGET_MULTIARCH = $(call vafilt,$(DPKG_TARGET_VARS),DEB_HOST_MULTIARCH)
   DEB_TARGET_ARCH      = $(call vafilt,$(DPKG_TARGET_VARS),DEB_HOST_ARCH)
+  for_target           = dpkg-architecture -f -t$(TARGET) -c
 else
   DEB_TARGET_MULTIARCH = $(DEB_HOST_MULTIARCH)
   DEB_TARGET_ARCH      = $(DEB_HOST_ARCH)
+  for_target           =
 endif
 
 ifneq (,$(TARGET))
@@ -238,8 +261,6 @@ ifneq (,$(filter $(DEB_HOST_ARCH), $(gold_targets)))
   with_gold = yes
   gold_provides = -Vgold:Provides=binutils-gold
 endif
-
-with_multiarch := yes
 
 CFLAGS = -g -O2
 CXXFLAGS = -g -O2
@@ -294,8 +315,11 @@ SINGLE_VERSION= $(VERSION)-system
 MULTI_VERSION = $(VERSION)-multiarch
 HPPA64_VERSION= $(VERSION)-hppa64
 
-ifeq (,$(filter $(distrelease),lenny etch squeeze wheezy dapper hardy jaunty karmic lucid maverick natty oneiric precise quantal raring saucy trusty utopic))
+ifeq (,$(filter $(distrelease),squeeze wheezy precise trusty))
   DPKG_DEV = dpkg-dev (>= 1.17.11),
+endif
+ifeq (,$(filter $(distrelease),squeeze wheezy stretch precise trusty xenial zesty artful))
+  DPKG_DEV = dpkg-dev (>= 1.19.0.5),
 endif
 
 NJOBS =
@@ -491,6 +515,7 @@ ifneq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
     with_check := disabled through DEB_BUILD_OPTIONS
   endif
 endif
+#with_check := disabled for this upload
 ifneq (,$(filter $(DEB_HOST_ARCH), armel armhf mips mipsel sparc))
   ignore_regressions := regressions ignored on architecture $(DEB_HOST_ARCH)
 endif
@@ -564,6 +589,11 @@ else
 	    | $(if $(filter yes,$(same_source)), grep -v '^Built-Using', cat) \
 	    >> debian/control; \
 	)
+  ifneq ($(DEB_HOST_ARCH),riscv64)
+    ifneq ($(IGNORE_RISCV64_HACK),yes)
+	sed -i -e '/^Architecture:/s/ riscv64//' debian/control
+    endif
+  endif
 endif
 	@mkdir -p stamps
 	touch $@
@@ -579,6 +609,7 @@ endif
 
 stamps/configure-single:
 	$(checkdir)
+	env
 	@echo BEGIN $@
 ifeq ($(with_check),yes)
 	@if echo "spawn true" | /usr/bin/expect -f - >/dev/null; then \
@@ -589,6 +620,12 @@ ifeq ($(with_check),yes)
 	  echo "-----------------------------------------------------------------------------"; \
 	  exit 1; \
 	fi
+endif
+
+ifeq ($(DEB_HOST_ARCH),riscv64)
+	rm -f stamps/control
+	@mkdir -p stamps
+	$(MAKE) -f debian/rules stamps/control IGNORE_RISCV64_HACK=yes
 endif
 
 	rm -rf stamps/configure-single builddir-single
@@ -682,6 +719,7 @@ multiarch_targets = \
 	powerpc-linux-gnu \
 	powerpc64-linux-gnu \
 	powerpc64le-linux-gnu \
+	riscv64-linux-gnu \
 	s390-linux-gnu \
 	s390x-linux-gnu \
 	sh-linux-gnu \
@@ -1412,8 +1450,9 @@ binary-for-host: checkroot
 	ln -sf $(p_com) $(d_hst)/$(PF)/share/doc/$(p_hst)
 
 	rm -f debian/substvars
-	dpkg-gencontrol -P$(d_hst) -p$(p_hst) \
-		-Vbinutils:native=$(p_nat) -Vbinutils:minver=$(min_ver)
+	$(for_target) dpkg-gencontrol -P$(d_hst) -p$(p_hst) \
+		-Vbinutils:native=$(if $(TARGET),$(p_cross),$(p_nat)) \
+		-Vbinutils:minver=$(min_ver)
 
 	chown -R root:root $(d_hst)
 	chmod -R go=rX $(d_hst)
@@ -1711,6 +1750,8 @@ ifeq ($(with_hppa64),yes)
 		xargs -0r touch --no-dereference --date='$(BUILD_DATE)'
 	dpkg --build $(d_hppa64)-dbg ..
 endif
+	@echo '==================== Build finished ===================='
+	ps aux
 
 endif # Process the following only if $(TARGET) is set
 endif # ifndef BACKPORT

@@ -1,5 +1,5 @@
 Author: Matthias Klose <doko@ubuntu.com>
-Description: Explicitely use bash for the ld testsuite.
+Description: Explicitly use bash for the ld testsuite.
 Index: b/ld/testsuite/config/default.exp
 ===================================================================
 --- a/ld/testsuite/config/default.exp

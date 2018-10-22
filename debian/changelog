@@ -1,3 +1,244 @@
+binutils (2.30-22) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180622.
+    - x86 gas: Replace CET bit with IBT and SHSTK bits.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 22 Jun 2018 08:11:21 +0200
+
+binutils (2.30-21) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180529.
+    - x86-64: Add TLSDESC fields to elf_x86_lazy_plt_layout.
+    - PR binutils/23199, mark section in a section group with SHF_GROUP.
+    - PR ld/23194, x86: Don't set eh->local_ref to 1 for versioned symbol.
+    - PR ld/23189, x86: Don't set eh->local_ref to 1 for linker defined symbols.
+    - PR binutils/23199, Invalid SHT_GROUP entry leads to group confusion.
+  * Fix PR gprof/23056, memory corruption in gprof. LP: #1763098.
+  * Fix PR binutils/23054, memory corruption in as. LP: #1763096.
+  * Fix PR ld/23055, memory corruption in ld. LP: #1763094.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 29 May 2018 15:46:35 +0200
+
+binutils (2.30-20) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180516.
+    - Fix PR binutils/23109, disassembly mask for vector sdot on AArch64.
+    - Fix uninitialised memory acccess in COFF bfd backend.
+    - Update Portuguese translations.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 16 May 2018 10:21:19 -0400
+
+binutils (2.30-19) unstable; urgency=medium
+
+  * Build-depend on procps.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 03 May 2018 07:44:55 +0200
+
+binutils (2.30-17) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180502.
+    - Fix PR ld/23123, PR ld/22374, PowerPC32 ifunc regression.
+    - AArch64: Fix the mask for the sqrdml(a|s)h instructions.
+  * Fix unintialized memory in aarch64 opcodes, taken from the trunk.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 02 May 2018 14:11:28 +0200
+
+binutils (2.30-16) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180425.
+    - Fix PR ld 22782, x86: Remove the unused _GLOBAL_OFFSET_TABLE_.
+    - Update spanish and russian translations.
+  * Add amd64, i386, x32 and riscv64 cross compilers as build (test)
+    dependencies.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 25 Apr 2018 06:53:58 +0200
+
+binutils (2.30-15) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180408.
+  * Only build the basic package when running the autopkg tests.
+    Closes: #884117.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 08 Apr 2018 22:55:34 +0200
+
+binutils (2.30-14) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180405.
+    - Fix PR binutils/23025, Clear vex instead of vex.evex (x86).
+  * Fix PR gold/22770, MIPS: Fix GOT page counter in multi-got links,
+    taken from the trunk. Closes: #886222.
+  * Fix PR ld/23030 (stop the IA64 linker from removing unwind tables
+    when garbage collecting), taken from the trunk. Closes: #894915, #894719.
+  * More work arounds to build natively on riscv64.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 05 Apr 2018 19:13:24 +0200
+
+binutils (2.30-13) unstable; urgency=medium
+
+  * Build cross binutils for i386 and x32 on arm64 and ppc64el.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 04 Apr 2018 10:32:15 +0200
+
+binutils (2.30-11) unstable; urgency=medium
+
+  * Filter out the host architecture when passed as a cross architecture.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 01 Apr 2018 17:01:49 +0200
+
+binutils (2.30-10) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180330.
+    - Fix PR 22773, ARM assembler's parsing of an illegal ORR instruction.
+    - Fix PR gold/22868, PR ld/22972 on SPARC, .
+    - PR ld/23000, x86-64: Add ENDBR64 to the TLSDESC PLT entry.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 30 Mar 2018 18:55:59 +0800
+
+binutils (2.30-9) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180325.
+    - Fix PowerPC64 out-of-line save/restore functions.
+    - Remove unnecessary power9 group terminating nop.
+    - Set non_ir_ref_dynamic if a symbol is made dynamic.
+    - Fix PR ld/22836, "-r -s" doesn't work with -g3 using GCC 7.
+  * Fix amd64, i386 and x32 cross builds.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 25 Mar 2018 14:53:41 +0800
+
+binutils (2.30-8) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180318.
+    - [ARM] Fix bxns mask.
+    - Extend the fix for PR ld/20882.
+  * Fix PowerPC64 out-of-line save/restore functions. Closes: #886264.
+  * Revert the 2.30-7 change.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 18 Mar 2018 12:51:40 +0800
+
+binutils (2.30-7) unstable; urgency=medium
+
+  * Upload without build dependencies on the cross compilers and don't run
+    the testsuite for this upload.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 08 Mar 2018 12:04:10 +0700
+
+binutils (2.30-6) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180308.
+    - Fix PR ld/15904, linker error with --no-keep-memory.
+    - Enable link time garbage collection for the IA64 target. Closes: #890909.
+    - Fix PR gas/22014, memory corruption in MIPS assembler.
+    - Fix PR ld/22758, a bug that would place executable and non-executables
+      pages in the same segment.
+    - Fix PR ld/22832 on SPARC.
+    - Fix AArch32 build attributes for Armv8.4-A.
+    - Update translations.
+  * CVE-2018-7208: Fix PR binutils/22741, taken from the trunk.
+  * CVE-2018-7568: Fix PR binutils/22894, taken from the trunk.
+  * CVE-2018-7569: Fix PR binutils/22895, taken from the trunk.
+  * CVE-2018-7642: Fix PR binutils/22887, taken from the trunk.
+  * CVE-2018-7643: Fix PR binutils/22905, taken from the trunk.
+  * CVE-2018-7570: PR binutils/22881 needs a proper backport.
+  * Update package descriptions for binutils-<target>. Closes: #891377.
+  * Build binutils-for-host for TARGET (Helmut Grohne). Closes: #891863.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 08 Mar 2018 09:56:54 +0700
+
+binutils (2.30-5) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180215.
+    - gas: xtensa: fix trampoline placement.
+    - Fix PR gas/22738 (.dc.a directive has wrong size on SPARC 64-bit).
+    - Fix GOT relocation overflow on SPARC. Closes: #890359.
+  * strings --include-all-whitespace doesn't take an argument. Closes: #887894.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 15 Feb 2018 08:20:04 +0700
+
+binutils (2.30-4) unstable; urgency=high
+
+  * Update, taken from the 2.30 branch 20180209.
+    - Fix PR binutils/22788 (CVE-2018-6872).
+  * binutils-multiarch: Add riscv64 support.
+  * Bump dpkg version to a version supporting riscv64.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 09 Feb 2018 19:24:28 +0100
+
+binutils (2.30-3) unstable; urgency=high
+
+  * Update, taken from the 2.30 branch 20180208.
+    - Remove speculation barrier support, remove --speculate-indirect-jumps
+      support (PPC).
+    - Fix PR ld/22764.
+  * CVE-2018-6323: Fix PR binutils/22746, taken from the trunk.
+  * CVE-2018-6543: Fix PR binutils/22769, taken from the trunk.
+  * CVE-2018-6759: Fix PR binutils/22794, taken from the trunk.
+  * Build riscv64 cross packages. This is using a hack, making binutils
+    not building natively on riscv64. At the mercy of a dpkg update
+    to handle riscv64 in stretch ...
+
+ -- Matthias Klose <doko@debian.org>  Thu, 08 Feb 2018 10:22:10 +0100
+
+binutils (2.30-2) unstable; urgency=medium
+
+  * Update, taken from the 2.30 branch 20180205.
+    - Fix PR ld/22762.
+    - gold: Add support for DWARF-4 line number tables.
+    - Update Brazillian portuguese and Russian translations.
+  * Apply approved patch for PR ld/22764 (AArch64). LP: #1746765.
+    Closes: #888789.
+  * Fix PR binutils/22734, taken from the trunk. Closes: #887729.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 05 Feb 2018 16:22:40 +0100
+
+binutils (2.30-1) unstable; urgency=medium
+
+  * Binutils 2.30 release.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 29 Jan 2018 14:29:38 +0100
+
+binutils (2.29.90.20180122-1) unstable; urgency=medium
+
+  * Snapshot, taken from the binutils 2.30 branch (20180122).
+  * Security issues addressed in 2.30: CVE-2017-13716, CVE-2017-14930,
+    CVE-2017-14932, CVE-2017-14933, CVE-2017-14934, CVE-2017-14938,
+    CVE-2017-14939, CVE-2017-14940, CVE-2017-15020, CVE-2017-15021,
+    CVE-2017-15022, CVE-2017-15023, CVE-2017-15024, CVE-2017-15025,
+    CVE-2017-15225, CVE-2017-15938, CVE-2017-15996, CVE-2017-16826,
+    CVE-2017-16827, CVE-2017-16828, CVE-2017-16829, CVE-2017-16830,
+    CVE-2017-16831, CVE-2017-16832, CVE-2017-17080, CVE-2017-17121,
+    CVE-2017-17122, CVE-2017-17123, CVE-2017-17124, CVE-2017-17125,
+    CVE-2017-17126.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 23 Jan 2018 04:11:38 +0100
+
+binutils (2.29.51.20180110-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20180110).
+
+ -- Matthias Klose <doko@debian.org>  Wed, 10 Jan 2018 16:54:44 +0100
+
+binutils (2.29.51.20171219-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20171219).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 19 Dec 2017 14:50:11 +0100
+
+binutils (2.29.51.20171208-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20171208).
+  * binutils-source: Depend on python3 instead of python.
+  * Override m68k, powerpcspe and m68k buildd admins to run the testsuite.
+  * Build binutils-x86-64-linux-gnu on arm64 and ppc64el. See #883769.
+  * Revived from the tombs, build a binutils-ia64-linux-gnu package.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 08 Dec 2017 15:19:09 +0100
+
+binutils (2.29.51.20171128-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20171128).
+
+ -- Matthias Klose <doko@debian.org>  Tue, 28 Nov 2017 08:59:33 +0100
+
 binutils (2.29.1-13) unstable; urgency=medium
 
   * Update, taken from the 2.29 branch 20180105.

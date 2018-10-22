@@ -3,10 +3,10 @@ Section: devel
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
 Uploaders: James Troup <binutils@elmo.tasta.io>
-Standards-Version: 4.1.3
-Build-Depends: autoconf (>= 2.64), dpkg-dev (>= 1.17.11),
+Standards-Version: 4.1.4
+Build-Depends: autoconf (>= 2.64), dpkg-dev (>= 1.19.0.5),
   bison, flex, gettext, texinfo, dejagnu, quilt, chrpath, dwz,
-  python3:any, file, xz-utils, lsb-release, zlib1g-dev,
+  python3:any, file, xz-utils, lsb-release, zlib1g-dev, procps,
   g++-aarch64-linux-gnu [amd64 i386 x32] <!nocheck>,
   g++-arm-linux-gnueabi [amd64 arm64 i386 x32] <!nocheck>,
   g++-arm-linux-gnueabihf [amd64 arm64 i386 x32] <!nocheck>,
@@ -22,8 +22,12 @@ Build-Depends: autoconf (>= 2.64), dpkg-dev (>= 1.17.11),
   g++-powerpc-linux-gnu [amd64 i386 ppc64el x32] <!nocheck>,
   g++-powerpc-linux-gnuspe [amd64 i386 x32] <!nocheck>,
   g++-powerpc64-linux-gnu [amd64 i386 x32] <!nocheck>,
+  g++-riscv64-linux-gnu [amd64 i386 x32] <!nocheck>,
   g++-sh4-linux-gnu [amd64 i386 x32] <!nocheck>,
   g++-sparc64-linux-gnu [amd64 i386 x32] <!nocheck>,
+  g++-i686-linux-gnu [amd64 arm64 ppc64el x32] <!nocheck>,
+  g++-x86-64-linux-gnu [arm64 i386 ppc64el x32] <!nocheck>,
+  g++-x86-64-linux-gnux32 [amd64 arm64 i386 ppc64el] <!nocheck>,
 Build-Conflicts: libelf-dev
 Homepage: https://www.gnu.org/software/binutils/
 Vcs-Browser: https://code.launchpad.net/~doko/binutils/pkg-2.29-debian
@@ -60,7 +64,6 @@ Depends: ${shlibs:Depends}, binutils-common (= ${binary:Version}),
   libbinutils (= ${binary:Version}), ${binutils:native} (= ${binary:Version})
 Conflicts: modutils (<< 2.4.19-1), ${extraConflicts},
   binutils-multiarch (<< 2.27-8)
-Breaks: hardening-wrapper (<< 2.8+nmu3)
 Provides: elf-binutils, ${gold:Provides}
 Suggests: binutils-doc (>= ${source:Version})
 Description: GNU assembler, linker and binary utilities
@@ -190,7 +193,7 @@ Description: Common files for the GNU assembler, linker and binary utilities
 
 Package: binutils-x86-64-linux-gnu
 Priority: optional
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64 i386 ppc64el x32
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -200,16 +203,15 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for x86-64-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the x86-64-linux-gnu target, for use in a cross-compilation
- environment.
+ for the x86-64-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for x86-64-linux-gnu.
+ for x86-64-linux-gnu and x86-64-linux-gnu is not your native platform.
 
 Package: binutils-x86-64-linux-gnu-dbg
 Section: debug
 Priority: optional
-Architecture: amd64 arm64 ppc64el
+Architecture: amd64 arm64 i386 ppc64el x32
 Multi-Arch: foreign
 Depends: binutils-x86-64-linux-gnu (= ${binary:Version})
 Description: GNU binary utilities, for x86-64-linux-gnu target (debug symbols)
@@ -217,7 +219,7 @@ Description: GNU binary utilities, for x86-64-linux-gnu target (debug symbols)
 
 Package: binutils-i686-linux-gnu
 Priority: optional
-Architecture: i386 amd64 x32
+Architecture: i386 amd64 arm64 ppc64el x32
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -227,16 +229,15 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for i686-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the i686-linux-gnu target, for use in a cross-compilation
- environment.
+ for the i686-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for i686-linux-gnu.
+ for i686-linux-gnu and i686-linux-gnu is not your native platform.
 
 Package: binutils-i686-linux-gnu-dbg
 Section: debug
 Priority: optional
-Architecture: i386 amd64 x32
+Architecture: i386 amd64 arm64 ppc64el x32
 Multi-Arch: foreign
 Depends: binutils-i686-linux-gnu (= ${binary:Version})
 Description: GNU binary utilities, for i686-linux-gnu target (debug symbols)
@@ -254,11 +255,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for aarch64-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the aarch64-linux-gnu target, for use in a cross-compilation
- environment.
+ for the aarch64-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for aarch64-linux-gnu.
+ for aarch64-linux-gnu and aarch64-linux-gnu is not your native platform.
 
 Package: binutils-aarch64-linux-gnu-dbg
 Section: debug
@@ -281,11 +281,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for arm-linux-gnueabihf target
  This package provides GNU assembler, linker and binary utilities
- for the arm-linux-gnueabihf target, for use in a cross-compilation
- environment.
+ for the arm-linux-gnueabihf target.
  .
  You don't need this package unless you plan to cross-compile programs
- for arm-linux-gnueabihf.
+ for arm-linux-gnueabihf and arm-linux-gnueabihf is not your native platform.
 
 Package: binutils-arm-linux-gnueabihf-dbg
 Section: debug
@@ -308,11 +307,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for arm-linux-gnueabi target
  This package provides GNU assembler, linker and binary utilities
- for the arm-linux-gnueabi target, for use in a cross-compilation
- environment.
+ for the arm-linux-gnueabi target.
  .
  You don't need this package unless you plan to cross-compile programs
- for arm-linux-gnueabi.
+ for arm-linux-gnueabi and arm-linux-gnueabi is not your native platform.
 
 Package: binutils-arm-linux-gnueabi-dbg
 Section: debug
@@ -335,11 +333,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mips-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the mips-linux-gnu target, for use in a cross-compilation
- environment.
+ for the mips-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mips-linux-gnu.
+ for mips-linux-gnu and mips-linux-gnu is not your native platform.
 
 Package: binutils-mips-linux-gnu-dbg
 Section: debug
@@ -362,11 +359,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsel-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the mipsel-linux-gnu target, for use in a cross-compilation
- environment.
+ for the mipsel-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsel-linux-gnu.
+ for mipsel-linux-gnu and mipsel-linux-gnu is not your native platform.
 
 Package: binutils-mipsel-linux-gnu-dbg
 Section: debug
@@ -389,11 +385,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mips64el-linux-gnuabi64 target
  This package provides GNU assembler, linker and binary utilities
- for the mips64el-linux-gnuabi64 target, for use in a cross-compilation
- environment.
+ for the mips64el-linux-gnuabi64 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mips64el-linux-gnuabi64.
+ for mips64el-linux-gnuabi64 and mips64el-linux-gnuabi64 is not your native platform.
 
 Package: binutils-mips64el-linux-gnuabi64-dbg
 Section: debug
@@ -416,11 +411,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for powerpc64le-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the powerpc64le-linux-gnu target, for use in a cross-compilation
- environment.
+ for the powerpc64le-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for powerpc64le-linux-gnu.
+ for powerpc64le-linux-gnu and powerpc64le-linux-gnu is not your native platform.
 
 Package: binutils-powerpc64le-linux-gnu-dbg
 Section: debug
@@ -443,11 +437,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for s390x-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the s390x-linux-gnu target, for use in a cross-compilation
- environment.
+ for the s390x-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for s390x-linux-gnu.
+ for s390x-linux-gnu and s390x-linux-gnu is not your native platform.
 
 Package: binutils-s390x-linux-gnu-dbg
 Section: debug
@@ -470,11 +463,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for alpha-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the alpha-linux-gnu target, for use in a cross-compilation
- environment.
+ for the alpha-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for alpha-linux-gnu.
+ for alpha-linux-gnu and alpha-linux-gnu is not your native platform.
 
 Package: binutils-alpha-linux-gnu-dbg
 Section: debug
@@ -497,11 +489,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for hppa-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the hppa-linux-gnu target, for use in a cross-compilation
- environment.
+ for the hppa-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for hppa-linux-gnu.
+ for hppa-linux-gnu and hppa-linux-gnu is not your native platform.
 
 Package: binutils-hppa-linux-gnu-dbg
 Section: debug
@@ -524,11 +515,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for ia64-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the ia64-linux-gnu target, for use in a cross-compilation
- environment.
+ for the ia64-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for ia64-linux-gnu.
+ for ia64-linux-gnu and ia64-linux-gnu is not your native platform.
 
 Package: binutils-ia64-linux-gnu-dbg
 Section: debug
@@ -551,11 +541,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for m68k-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the m68k-linux-gnu target, for use in a cross-compilation
- environment.
+ for the m68k-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for m68k-linux-gnu.
+ for m68k-linux-gnu and m68k-linux-gnu is not your native platform.
 
 Package: binutils-m68k-linux-gnu-dbg
 Section: debug
@@ -578,11 +567,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mips64-linux-gnuabi64 target
  This package provides GNU assembler, linker and binary utilities
- for the mips64-linux-gnuabi64 target, for use in a cross-compilation
- environment.
+ for the mips64-linux-gnuabi64 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mips64-linux-gnuabi64.
+ for mips64-linux-gnuabi64 and mips64-linux-gnuabi64 is not your native platform.
 
 Package: binutils-mips64-linux-gnuabi64-dbg
 Section: debug
@@ -605,11 +593,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for powerpc-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the powerpc-linux-gnu target, for use in a cross-compilation
- environment.
+ for the powerpc-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for powerpc-linux-gnu.
+ for powerpc-linux-gnu and powerpc-linux-gnu is not your native platform.
 
 Package: binutils-powerpc-linux-gnu-dbg
 Section: debug
@@ -632,11 +619,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for powerpc-linux-gnuspe target
  This package provides GNU assembler, linker and binary utilities
- for the powerpc-linux-gnuspe target, for use in a cross-compilation
- environment.
+ for the powerpc-linux-gnuspe target.
  .
  You don't need this package unless you plan to cross-compile programs
- for powerpc-linux-gnuspe.
+ for powerpc-linux-gnuspe and powerpc-linux-gnuspe is not your native platform.
 
 Package: binutils-powerpc-linux-gnuspe-dbg
 Section: debug
@@ -659,11 +645,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for powerpc64-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the powerpc64-linux-gnu target, for use in a cross-compilation
- environment.
+ for the powerpc64-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for powerpc64-linux-gnu.
+ for powerpc64-linux-gnu and powerpc64-linux-gnu is not your native platform.
 
 Package: binutils-powerpc64-linux-gnu-dbg
 Section: debug
@@ -673,6 +658,32 @@ Multi-Arch: foreign
 Depends: binutils-powerpc64-linux-gnu (= ${binary:Version})
 Description: GNU binary utilities, for powerpc64-linux-gnu target (debug symbols)
  This package provides debug symbols for binutils-powerpc64-linux-gnu.
+
+Package: binutils-riscv64-linux-gnu
+Priority: optional
+Architecture: amd64 i386 x32
+Multi-Arch: foreign
+Depends: binutils-common (= ${binary:Version}),
+  ${shlibs:Depends}, ${extraDepends}
+Suggests: binutils-doc (= ${source:Version})
+Provides: 
+Breaks: binutils (<< 2.29-6)
+Replaces: binutils (<< 2.29-6)
+Description: GNU binary utilities, for riscv64-linux-gnu target
+ This package provides GNU assembler, linker and binary utilities
+ for the riscv64-linux-gnu target.
+ .
+ You don't need this package unless you plan to cross-compile programs
+ for riscv64-linux-gnu and riscv64-linux-gnu is not your native platform.
+
+Package: binutils-riscv64-linux-gnu-dbg
+Section: debug
+Priority: optional
+Architecture: amd64 i386 x32
+Multi-Arch: foreign
+Depends: binutils-riscv64-linux-gnu (= ${binary:Version})
+Description: GNU binary utilities, for riscv64-linux-gnu target (debug symbols)
+ This package provides debug symbols for binutils-riscv64-linux-gnu.
 
 Package: binutils-sh4-linux-gnu
 Priority: optional
@@ -686,11 +697,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for sh4-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the sh4-linux-gnu target, for use in a cross-compilation
- environment.
+ for the sh4-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for sh4-linux-gnu.
+ for sh4-linux-gnu and sh4-linux-gnu is not your native platform.
 
 Package: binutils-sh4-linux-gnu-dbg
 Section: debug
@@ -713,11 +723,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for sparc64-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the sparc64-linux-gnu target, for use in a cross-compilation
- environment.
+ for the sparc64-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for sparc64-linux-gnu.
+ for sparc64-linux-gnu and sparc64-linux-gnu is not your native platform.
 
 Package: binutils-sparc64-linux-gnu-dbg
 Section: debug
@@ -730,7 +739,7 @@ Description: GNU binary utilities, for sparc64-linux-gnu target (debug symbols)
 
 Package: binutils-x86-64-linux-gnux32
 Priority: optional
-Architecture: x32
+Architecture: x32 amd64 arm64 i386 ppc64el
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -740,16 +749,15 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for x86-64-linux-gnux32 target
  This package provides GNU assembler, linker and binary utilities
- for the x86-64-linux-gnux32 target, for use in a cross-compilation
- environment.
+ for the x86-64-linux-gnux32 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for x86-64-linux-gnux32.
+ for x86-64-linux-gnux32 and x86-64-linux-gnux32 is not your native platform.
 
 Package: binutils-x86-64-linux-gnux32-dbg
 Section: debug
 Priority: optional
-Architecture: x32
+Architecture: x32 amd64 arm64 i386 ppc64el
 Multi-Arch: foreign
 Depends: binutils-x86-64-linux-gnux32 (= ${binary:Version})
 Description: GNU binary utilities, for x86-64-linux-gnux32 target (debug symbols)
@@ -767,11 +775,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for i686-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the i686-gnu target, for use in a cross-compilation
- environment.
+ for the i686-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for i686-gnu.
+ for i686-gnu and i686-gnu is not your native platform.
 
 Package: binutils-i686-gnu-dbg
 Section: debug
@@ -794,11 +801,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for x86-64-kfreebsd-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the x86-64-kfreebsd-gnu target, for use in a cross-compilation
- environment.
+ for the x86-64-kfreebsd-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for x86-64-kfreebsd-gnu.
+ for x86-64-kfreebsd-gnu and x86-64-kfreebsd-gnu is not your native platform.
 
 Package: binutils-x86-64-kfreebsd-gnu-dbg
 Section: debug
@@ -821,11 +827,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for i686-kfreebsd-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the i686-kfreebsd-gnu target, for use in a cross-compilation
- environment.
+ for the i686-kfreebsd-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for i686-kfreebsd-gnu.
+ for i686-kfreebsd-gnu and i686-kfreebsd-gnu is not your native platform.
 
 Package: binutils-i686-kfreebsd-gnu-dbg
 Section: debug
@@ -848,11 +853,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mips64-linux-gnuabin32 target
  This package provides GNU assembler, linker and binary utilities
- for the mips64-linux-gnuabin32 target, for use in a cross-compilation
- environment.
+ for the mips64-linux-gnuabin32 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mips64-linux-gnuabin32.
+ for mips64-linux-gnuabin32 and mips64-linux-gnuabin32 is not your native platform.
 
 Package: binutils-mips64-linux-gnuabin32-dbg
 Section: debug
@@ -875,11 +879,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mips64el-linux-gnuabin32 target
  This package provides GNU assembler, linker and binary utilities
- for the mips64el-linux-gnuabin32 target, for use in a cross-compilation
- environment.
+ for the mips64el-linux-gnuabin32 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mips64el-linux-gnuabin32.
+ for mips64el-linux-gnuabin32 and mips64el-linux-gnuabin32 is not your native platform.
 
 Package: binutils-mips64el-linux-gnuabin32-dbg
 Section: debug
@@ -902,11 +905,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsisa64r6-linux-gnuabin32 target
  This package provides GNU assembler, linker and binary utilities
- for the mipsisa64r6-linux-gnuabin32 target, for use in a cross-compilation
- environment.
+ for the mipsisa64r6-linux-gnuabin32 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6-linux-gnuabin32.
+ for mipsisa64r6-linux-gnuabin32 and mipsisa64r6-linux-gnuabin32 is not your native platform.
 
 Package: binutils-mipsisa64r6-linux-gnuabin32-dbg
 Section: debug
@@ -929,11 +931,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsisa64r6el-linux-gnuabin32 target
  This package provides GNU assembler, linker and binary utilities
- for the mipsisa64r6el-linux-gnuabin32 target, for use in a cross-compilation
- environment.
+ for the mipsisa64r6el-linux-gnuabin32 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6el-linux-gnuabin32.
+ for mipsisa64r6el-linux-gnuabin32 and mipsisa64r6el-linux-gnuabin32 is not your native platform.
 
 Package: binutils-mipsisa64r6el-linux-gnuabin32-dbg
 Section: debug
@@ -956,11 +957,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsisa32r6-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the mipsisa32r6-linux-gnu target, for use in a cross-compilation
- environment.
+ for the mipsisa32r6-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsisa32r6-linux-gnu.
+ for mipsisa32r6-linux-gnu and mipsisa32r6-linux-gnu is not your native platform.
 
 Package: binutils-mipsisa32r6-linux-gnu-dbg
 Section: debug
@@ -983,11 +983,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsisa32r6el-linux-gnu target
  This package provides GNU assembler, linker and binary utilities
- for the mipsisa32r6el-linux-gnu target, for use in a cross-compilation
- environment.
+ for the mipsisa32r6el-linux-gnu target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsisa32r6el-linux-gnu.
+ for mipsisa32r6el-linux-gnu and mipsisa32r6el-linux-gnu is not your native platform.
 
 Package: binutils-mipsisa32r6el-linux-gnu-dbg
 Section: debug
@@ -1010,11 +1009,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsisa64r6-linux-gnuabi64 target
  This package provides GNU assembler, linker and binary utilities
- for the mipsisa64r6-linux-gnuabi64 target, for use in a cross-compilation
- environment.
+ for the mipsisa64r6-linux-gnuabi64 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6-linux-gnuabi64.
+ for mipsisa64r6-linux-gnuabi64 and mipsisa64r6-linux-gnuabi64 is not your native platform.
 
 Package: binutils-mipsisa64r6-linux-gnuabi64-dbg
 Section: debug
@@ -1037,11 +1035,10 @@ Breaks: binutils (<< 2.29-6)
 Replaces: binutils (<< 2.29-6)
 Description: GNU binary utilities, for mipsisa64r6el-linux-gnuabi64 target
  This package provides GNU assembler, linker and binary utilities
- for the mipsisa64r6el-linux-gnuabi64 target, for use in a cross-compilation
- environment.
+ for the mipsisa64r6el-linux-gnuabi64 target.
  .
  You don't need this package unless you plan to cross-compile programs
- for mipsisa64r6el-linux-gnuabi64.
+ for mipsisa64r6el-linux-gnuabi64 and mipsisa64r6el-linux-gnuabi64 is not your native platform.
 
 Package: binutils-mipsisa64r6el-linux-gnuabi64-dbg
 Section: debug

@@ -4,7 +4,7 @@ Index: b/gold/options.h
 ===================================================================
 --- a/gold/options.h
 +++ b/gold/options.h
-@@ -1368,6 +1368,9 @@ class General_options
+@@ -1376,6 +1376,9 @@ class General_options
  		    options::TWO_DASHES, '\0',
  		    N_("Report unresolved symbols as errors"),
  		    NULL, true);

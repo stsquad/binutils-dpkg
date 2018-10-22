@@ -12,11 +12,10 @@ Replaces: binutils (<< 2.29-6)
 Built-Using: ${Built-Using}
 Description: GNU binary utilities, for @target@ target
  This package provides GNU assembler, linker and binary utilities
- for the @target@ target, for use in a cross-compilation
- environment.
+ for the @target@ target.
  .
  You don't need this package unless you plan to cross-compile programs
- for @target@.
+ for @target@ and @target@ is not your native platform.
 
 Package: binutils-@target@-dbg
 Section: debug

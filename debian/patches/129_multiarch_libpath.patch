@@ -286,7 +286,7 @@ Index: b/gold/configure
  DLOPEN_LIBS
  CXXCPP
  HAVE_NO_USE_LINKER_PLUGIN_FALSE
-@@ -7720,6 +7721,14 @@ $as_echo "#define HAVE_LC_MESSAGES 1" >>
+@@ -7747,6 +7748,14 @@ $as_echo "#define HAVE_LC_MESSAGES 1" >>
    fi
  
  
@@ -305,7 +305,7 @@ Index: b/gold/configure.ac
 ===================================================================
 --- a/gold/configure.ac
 +++ b/gold/configure.ac
-@@ -662,6 +662,14 @@ AC_CHECK_HEADERS(locale.h)
+@@ -682,6 +682,14 @@ AC_CHECK_HEADERS(locale.h)
  AC_CHECK_FUNCS(setlocale)
  AM_LC_MESSAGES
  
