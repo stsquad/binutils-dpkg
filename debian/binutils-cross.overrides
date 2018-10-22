@@ -1,0 +1,2 @@
+@PKG@ binary: package-name-doesnt-match-sonames
+@PKG@ binary: non-standard-dir-in-usr

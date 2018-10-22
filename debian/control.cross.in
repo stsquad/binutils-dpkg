@@ -1,0 +1,13 @@
+
+Package: binutils-@target@
+Architecture: @host_archs@
+Depends: binutils (= ${binary:Version}), ${shlibs:Depends}
+Suggests: binutils-doc (= ${source:Version})
+Priority: extra
+Built-Using: ${Built-Using}
+Description: GNU binary utilities, for @target@ target
+ This package provides GNU assembler, linker and binary utilities
+ for @target@ target, for use in a cross-compilation environment.
+ .
+ You don't need this package unless you plan to cross-compile programs
+ for @target@.

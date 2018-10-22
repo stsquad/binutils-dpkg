@@ -1,0 +1,2 @@
+libbfd @VER@-@ARCH@@DATE_EXT@ @PKG@ (>= @DEB_UVER@), @PKG@ (<< @DEB_NVER@)
+libopcodes @VER@-@ARCH@@DATE_EXT@ @PKG@ (>= @DEB_UVER@), @PKG@ (<< @DEB_NVER@)

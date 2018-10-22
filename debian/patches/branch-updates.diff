@@ -1,0 +1,5 @@
+# DP: updates from the binutils-2.25 branch
+
+# git diff 7586fe6c9574422dfd295d6787cf4dd2983b775c ae2c99a5f7172c30f671943c637b5c9b4c1928d5
+# exclude bfd/{configure{,.ac},Makefile.{am,in}}
+

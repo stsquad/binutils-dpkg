@@ -1,0 +1,2 @@
+libbfd @VER@-hppa64@DATE_EXT@ binutils-hppa64-linux-gnu
+libopcodes @VER@-hppa64@DATE_EXT@ binutils-hppa64-linux-gnu
