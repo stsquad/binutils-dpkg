@@ -6,7 +6,7 @@ Index: b/bfd/ChangeLog
 ===================================================================
 --- a/bfd/ChangeLog
 +++ b/bfd/ChangeLog
-@@ -212,15 +212,6 @@
+@@ -80,15 +80,6 @@
  
  2018-01-27  Nick Clifton  <nickc@redhat.com>
  
@@ -142,7 +142,7 @@ Index: b/binutils/ChangeLog
 ===================================================================
 --- a/binutils/ChangeLog
 +++ b/binutils/ChangeLog
-@@ -18,12 +18,6 @@
+@@ -6,12 +6,6 @@
  
  2018-01-27  Nick Clifton  <nickc@redhat.com>
  
@@ -245,7 +245,7 @@ Index: b/gas/ChangeLog
 ===================================================================
 --- a/gas/ChangeLog
 +++ b/gas/ChangeLog
-@@ -100,12 +100,6 @@
+@@ -50,12 +50,6 @@
  
  2018-01-27  Nick Clifton  <nickc@redhat.com>
  
@@ -434,7 +434,7 @@ Index: b/ld/ChangeLog
 ===================================================================
 --- a/ld/ChangeLog
 +++ b/ld/ChangeLog
-@@ -131,12 +131,6 @@
+@@ -41,12 +41,6 @@
  
  2018-01-27  Nick Clifton  <nickc@redhat.com>
  
@@ -537,7 +537,7 @@ Index: b/opcodes/ChangeLog
 ===================================================================
 --- a/opcodes/ChangeLog
 +++ b/opcodes/ChangeLog
-@@ -34,13 +34,6 @@
+@@ -4,13 +4,6 @@
  
  2018-01-27  Nick Clifton  <nickc@redhat.com>
  

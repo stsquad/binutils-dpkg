@@ -134,7 +134,7 @@ ifeq ($(src_name),binutils)
     else ifeq ($(DEB_HOST_ARCH),ppc64)
       CROSS_ARCHS = ppc64el
     else ifeq ($(DEB_HOST_ARCH),ppc64el)
-      CROSS_ARCHS = powerpc ppc64 amd64 i386 x32
+      CROSS_ARCHS = powerpc ppc64 amd64 i386 x32 arm64 armel armhf
     else
       CROSS_ARCHS =
     endif
@@ -156,16 +156,20 @@ endif
 
 with_multiarch := yes
 
+# disabled: no build-needed restriction used in the autopkg test
+ifeq (0,1)
 # only build the basic package when running the autopkg tests
 ifneq (,$(ADT_TEST_TRIGGERS))
-  CROSS_ARCHS :=
+  # c-t-b sets CROSS_ARCHS which has to be respected, can't unset it here
+  #CROSS_ARCHS :=
   with_hppa64 :=
   with_multiarch :=
 endif
+endif
 
-HOST_ARCHS_armhf = amd64 i386 x32 arm64
-HOST_ARCHS_armel = amd64 i386 x32 arm64
-HOST_ARCHS_arm64 = amd64 i386 x32
+HOST_ARCHS_armhf = amd64 i386 x32 arm64 ppc64el
+HOST_ARCHS_armel = amd64 i386 x32 arm64 ppc64el
+HOST_ARCHS_arm64 = amd64 i386 x32 ppc64el
 HOST_ARCHS_mips = amd64 i386 x32
 HOST_ARCHS_mipsel = amd64 i386 x32
 HOST_ARCHS_powerpc = amd64 i386 x32 ppc64el
@@ -297,9 +301,9 @@ DEB_SVERSION	:= $(shell echo $(DEB_VERSION) | sed 's/+b[0-9][0-9]*$$//')
 DEB_UPSTREAM	:= $(firstword $(subst -,$(SPACE),$(DEB_VERSION)))
 
 VERSION		:= $(shell sed -n 's/^ *VERSION=\(.*\)/\1/p' bfd/configure | head -1 | tr -d \')
-DATE		:= $(shell sed -n 's/.* \([0-9]*\)$$/\1/p' bfd/version.h)
+#DATE		:= $(shell sed -n 's/.* \([0-9]*\)$$/\1/p' bfd/version.h)
 ifneq (,$(DATE))
-#  DATE_EXT	:= .$(DATE)
+  DATE_EXT	:= .$(DATE)
 endif
 BUILD_DATE := $(shell dpkg-parsechangelog | sed -n -e 's/^Date: //p')
 BUILD_DAY  := $(shell date -Idate -u -d "$(BUILD_DATE)")
@@ -589,11 +593,6 @@ else
 	    | $(if $(filter yes,$(same_source)), grep -v '^Built-Using', cat) \
 	    >> debian/control; \
 	)
-  ifneq ($(DEB_HOST_ARCH),riscv64)
-    ifneq ($(IGNORE_RISCV64_HACK),yes)
-	sed -i -e '/^Architecture:/s/ riscv64//' debian/control
-    endif
-  endif
 endif
 	@mkdir -p stamps
 	touch $@
@@ -620,12 +619,6 @@ ifeq ($(with_check),yes)
 	  echo "-----------------------------------------------------------------------------"; \
 	  exit 1; \
 	fi
-endif
-
-ifeq ($(DEB_HOST_ARCH),riscv64)
-	rm -f stamps/control
-	@mkdir -p stamps
-	$(MAKE) -f debian/rules stamps/control IGNORE_RISCV64_HACK=yes
 endif
 
 	rm -rf stamps/configure-single builddir-single

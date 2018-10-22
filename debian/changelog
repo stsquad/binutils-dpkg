@@ -1,3 +1,119 @@
+binutils (2.31.1-7) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20181018).
+    - AArch64: Fix error checking for SIMD udot (by element).
+    - x86: Add Intel ENCLV to assembler and disassembler.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 18 Oct 2018 08:54:07 +0200
+
+binutils (2.31.1-6) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20180919).
+    - PR ld/23499: elf: Check for corrupt symbol version info.
+    - Fix Aarch64 bug in warning filtering.
+    - Improve the code in the assembler to detect and reject a duplicate
+      input and output file.
+  * Don't reset CROSS_ARCHS when building in an autopkg tests (as done by
+    the cross-toolchain-base build test).
+
+ -- Matthias Klose <doko@debian.org>  Wed, 19 Sep 2018 13:48:13 +0200
+
+binutils (2.31.1-5) unstable; urgency=medium
+
+  * Fix the "build" autopkg test, depending on fakeroot and allowing output
+    on stderr.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 31 Aug 2018 11:56:41 +0200
+
+binutils (2.31.1-4) unstable; urgency=medium
+
+  * Rewrite. the "build" autopkg tests not to use the "build-needed"
+    restriction until #906125 is fixed. Closes: #884117.
+  * Build armel and armhf cross binutils on ppc64el.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 14 Aug 2018 20:43:44 +0200
+
+binutils (2.31.1-3) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20180814).
+    - Fix PR ld/23428, properly add X86_ISA_1_NEEDED property.
+    - Fix PR ld/23486, properly merge GNU_PROPERTY_X86_ISA_1_USED.
+    - x32: Align the .note.gnu.property section to 4 bytes.
+    - PowerPC64 __tls_get_addr_opt stub .eh_frame fix.
+    - PowerPC64: __tls_get_addr_opt stubs and tocsave optimization.
+    - PR gas/23465, x86: don't mistakenly scale non-8-bit displacements.
+    - PR gold/23455, add --warn-drop-version option; by default, do not warn
+      when discarding version info.
+    - hppa: Fix unwind offset for call_info->start_symbol.
+  * Build arm64 cross binutils on ppc64el.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 14 Aug 2018 07:33:39 +0200
+
+binutils (2.31.1-2) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20180726).
+    - S/390: Set the htm flag on PPA.
+    - x86: Add a GNU_PROPERTY_X86_ISA_1_USED note if needed.
+    - x86: Split vcvtps2{,u}qq and vcvttps2{,u}qq.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 26 Jul 2018 12:23:07 +0200
+
+binutils (2.31.1-1) unstable; urgency=medium
+
+  * Binutils 2.31.1 release.
+  * Remove the riscv64 build hack. Closes: #903857.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 18 Jul 2018 11:58:00 +0200
+
+binutils (2.31-1) unstable; urgency=medium
+
+  * Binutils 2.31 release.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 16 Jul 2018 11:40:18 +0200
+
+binutils (2.30.90.20180710-1) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20180710).
+    - Fix PR ld/23388, configuration with --enable-separate-code on i386.
+      Closes: #903376.
+    - Fix PR ld/23372, Remove x86 ISA properties with empty bits.
+    - Fix PR binutils/23369, read/write flag for these registers on AArch64.
+    - Fix PR binutils/23242, SBO bit in disassembly mask for ldrah on AArch64.
+    - [GOLD] PowerPC .gnu.attributes support.
+    - CVE-2018-8945: PR binutils/22809, objdump segfault.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 10 Jul 2018 11:44:16 +0200
+
+binutils (2.30.90.20180705-1) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20180705).
+    - Install the diagnostics.h header. Closes: #902765, #902823.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 05 Jul 2018 17:55:14 +0200
+
+binutils (2.30.90.20180627-1) unstable; urgency=medium
+
+  * Snapshot, taken from the 2.31 branch (20180627).
+    - CVE-2018-10372: PR binutils/23064, Fix illegal memory access when parsing
+      corrupt DWARF information.
+    - CVE-2018-10373: PR binutils/23065, nm segfault.
+    - CVE-2018-10534: PR binutils/23110, objcopy segfault.
+    - CVE-2018-10535: PR binutils/23113, objcopy segfault.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 27 Jun 2018 21:55:43 +0200
+
+binutils (2.30.52.20180613-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20180613).
+
+ -- Matthias Klose <doko@debian.org>  Wed, 13 Jun 2018 14:20:30 +0200
+
+binutils (2.30.51.20180512-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20180512).
+
+ -- Matthias Klose <doko@debian.org>  Sat, 12 May 2018 11:45:10 -0400
+
 binutils (2.30-22) unstable; urgency=medium
 
   * Update, taken from the 2.30 branch 20180622.

@@ -6,7 +6,7 @@ Index: b/ld/testsuite/ld-bootstrap/bootstrap.exp
 ===================================================================
 --- a/ld/testsuite/ld-bootstrap/bootstrap.exp
 +++ b/ld/testsuite/ld-bootstrap/bootstrap.exp
-@@ -44,6 +44,15 @@ if [check_plugin_api_available] {
+@@ -46,6 +46,15 @@ if [check_plugin_api_available] {
      set plugins "yes"
  }
  
@@ -22,7 +22,7 @@ Index: b/ld/testsuite/ld-bootstrap/bootstrap.exp
  # Bootstrap ld.  First link the object files together using -r, in
  # order to test -r.  Then link the result into an executable, ld1, to
  # really test -r.  Use ld1 to link a fresh ld, ld2.  Use ld2 to link a
-@@ -102,6 +111,11 @@ foreach flags $test_flags {
+@@ -110,6 +119,11 @@ foreach flags $test_flags {
  	continue
      }
  
@@ -34,7 +34,7 @@ Index: b/ld/testsuite/ld-bootstrap/bootstrap.exp
      # If we only have a shared libbfd, we probably can't run the
      # --static test.
      if { $flags == "--static" && ! [string match "*libbfd.a*" $BFDLIB] } then {
-@@ -146,6 +160,10 @@ foreach flags $test_flags {
+@@ -154,6 +168,10 @@ foreach flags $test_flags {
  	}
      }
  

@@ -1,5 +1,6 @@
 branch-updates.diff
-branch-version.diff
+#branch-version.diff
+branch-no-development.diff
 001_ld_makefile_patch.patch
 002_gprof_profile_arcs.patch
 003_gprof_see_also_monitor.patch
@@ -26,25 +27,9 @@ aarch64-libpath.diff
 mips64-default-n64.diff
 gold-mips.diff
 i18n-fr.diff
-strings-whitespace-arg.diff
 gold-no-keep-files-mapped.diff
 
 # trunk backports
-pr22734.diff
-pr22746.diff
-pr22769.diff
-pr22794.diff
-pr22741.diff
-pr22894.diff
-pr22895.diff
-#pr22881.diff
-pr22887.diff
-pr22905.diff
-pr22770-v3.patch
-aarch64-uninit-mem.diff
-pr23054.diff
-pr23055.diff
-pr23056.diff
 
 # experimental ...
 infinity-notes.diff

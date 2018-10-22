@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
 Uploaders: James Troup <binutils@elmo.tasta.io>
-Standards-Version: 4.1.4
+Standards-Version: 4.2.1
 Build-Depends: autoconf (>= 2.64), @dpkg_dev@
   bison, flex, gettext, texinfo, dejagnu, quilt, chrpath, dwz,
   python3:any, file, xz-utils, lsb-release, zlib1g-dev, procps,

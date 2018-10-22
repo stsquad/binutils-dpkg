@@ -3,7 +3,7 @@ Section: devel
 Priority: optional
 Maintainer: Matthias Klose <doko@debian.org>
 Uploaders: James Troup <binutils@elmo.tasta.io>
-Standards-Version: 4.1.4
+Standards-Version: 4.2.1
 Build-Depends: autoconf (>= 2.64), dpkg-dev (>= 1.19.0.5),
   bison, flex, gettext, texinfo, dejagnu, quilt, chrpath, dwz,
   python3:any, file, xz-utils, lsb-release, zlib1g-dev, procps,
@@ -245,7 +245,7 @@ Description: GNU binary utilities, for i686-linux-gnu target (debug symbols)
 
 Package: binutils-aarch64-linux-gnu
 Priority: optional
-Architecture: arm64 amd64 i386 x32
+Architecture: arm64 amd64 i386 x32 ppc64el
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -263,7 +263,7 @@ Description: GNU binary utilities, for aarch64-linux-gnu target
 Package: binutils-aarch64-linux-gnu-dbg
 Section: debug
 Priority: optional
-Architecture: arm64 amd64 i386 x32
+Architecture: arm64 amd64 i386 x32 ppc64el
 Multi-Arch: foreign
 Depends: binutils-aarch64-linux-gnu (= ${binary:Version})
 Description: GNU binary utilities, for aarch64-linux-gnu target (debug symbols)
@@ -271,7 +271,7 @@ Description: GNU binary utilities, for aarch64-linux-gnu target (debug symbols)
 
 Package: binutils-arm-linux-gnueabihf
 Priority: optional
-Architecture: armhf amd64 i386 x32 arm64
+Architecture: armhf amd64 i386 x32 arm64 ppc64el
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -289,7 +289,7 @@ Description: GNU binary utilities, for arm-linux-gnueabihf target
 Package: binutils-arm-linux-gnueabihf-dbg
 Section: debug
 Priority: optional
-Architecture: armhf amd64 i386 x32 arm64
+Architecture: armhf amd64 i386 x32 arm64 ppc64el
 Multi-Arch: foreign
 Depends: binutils-arm-linux-gnueabihf (= ${binary:Version})
 Description: GNU binary utilities, for arm-linux-gnueabihf target (debug symbols)
@@ -297,7 +297,7 @@ Description: GNU binary utilities, for arm-linux-gnueabihf target (debug symbols
 
 Package: binutils-arm-linux-gnueabi
 Priority: optional
-Architecture: armel amd64 i386 x32 arm64
+Architecture: armel amd64 i386 x32 arm64 ppc64el
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -315,7 +315,7 @@ Description: GNU binary utilities, for arm-linux-gnueabi target
 Package: binutils-arm-linux-gnueabi-dbg
 Section: debug
 Priority: optional
-Architecture: armel amd64 i386 x32 arm64
+Architecture: armel amd64 i386 x32 arm64 ppc64el
 Multi-Arch: foreign
 Depends: binutils-arm-linux-gnueabi (= ${binary:Version})
 Description: GNU binary utilities, for arm-linux-gnueabi target (debug symbols)
@@ -661,7 +661,7 @@ Description: GNU binary utilities, for powerpc64-linux-gnu target (debug symbols
 
 Package: binutils-riscv64-linux-gnu
 Priority: optional
-Architecture: amd64 i386 x32
+Architecture: riscv64 amd64 i386 x32
 Multi-Arch: foreign
 Depends: binutils-common (= ${binary:Version}),
   ${shlibs:Depends}, ${extraDepends}
@@ -679,7 +679,7 @@ Description: GNU binary utilities, for riscv64-linux-gnu target
 Package: binutils-riscv64-linux-gnu-dbg
 Section: debug
 Priority: optional
-Architecture: amd64 i386 x32
+Architecture: riscv64 amd64 i386 x32
 Multi-Arch: foreign
 Depends: binutils-riscv64-linux-gnu (= ${binary:Version})
 Description: GNU binary utilities, for riscv64-linux-gnu target (debug symbols)

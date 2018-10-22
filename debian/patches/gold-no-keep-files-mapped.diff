@@ -1,8 +1,10 @@
 # DP: gold on 32bit archs: Release mapped files after each pass.
 
+Index: b/gold/options.h
+===================================================================
 --- a/gold/options.h
 +++ b/gold/options.h
-@@ -995,7 +995,8 @@
+@@ -999,7 +999,8 @@ class General_options
  
    // k
  

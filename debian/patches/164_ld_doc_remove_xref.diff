@@ -1,10 +1,10 @@
 # DP: In ld.texi, remove cross reference to BFD internals documentation.
 
-Index: b/ld/ld.texinfo
+Index: b/ld/ld.texi
 ===================================================================
---- a/ld/ld.texinfo
-+++ b/ld/ld.texinfo
-@@ -8382,7 +8382,8 @@ may be spent optimizing algorithms for a
+--- a/ld/ld.texi
++++ b/ld/ld.texi
+@@ -8307,7 +8307,8 @@ may be spent optimizing algorithms for a
  One minor artifact of the BFD solution which you should bear in
  mind is the potential for information loss.  There are two places where
  useful information can be lost using the BFD mechanism: during

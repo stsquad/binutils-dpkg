@@ -109,21 +109,21 @@ Index: b/ld/genscripts.sh
  # Always search $(tooldir)/lib, aka /usr/local/TARGET/lib when native
  # except when LIBPATH=":".
  if [ "${LIB_PATH}" != ":" ] ; then
-@@ -205,31 +303,138 @@ if [ "${LIB_PATH}" != ":" ] ; then
-     # vs. /usr/s390-linux/lib64)
-     case "${NATIVE}:${LIBPATH_SUFFIX}:${TOOL_LIB}" in
-       :* | *::* | *:*:*${LIBPATH_SUFFIX}) ;;
--      *) libs="${exec_prefix}/${target_alias}/lib${LIBPATH_SUFFIX}" ;;
-+      *)
-+	# FIXME:
-+	# For the binutils-multiarch build on x86_64-linux-gnu configured
-+        # with --enable-targets=powerpc-linux-gnu, /usr/x86_64-linux-gnu/lib64
-+        # is added instead of /usr/powerpc64-linux-gnu/lib64. However this
-+	# probably wanted for the "default" emulation. How to detect that?
-+	libs="${exec_prefix}/${target_alias}/lib${LIBPATH_SUFFIX}" ;;
-     esac
+@@ -207,6 +305,13 @@ if [ "${LIB_PATH}" != ":" ] ; then
+       case "${NATIVE}:${libpath_suffix}:${TOOL_LIB}" in
+ 	:* | *::* | *:*:*${libpath_suffix}) ;;
+ 	*) libs="${exec_prefix}/${target_alias}/lib${libpath_suffix}" ;;
++	*)
++	  # FIXME:
++	  # For the binutils-multiarch build on x86_64-linux-gnu configured
++          # with --enable-targets=powerpc-linux-gnu, /usr/x86_64-linux-gnu/lib64
++          # is added instead of /usr/powerpc64-linux-gnu/lib64. However this
++	  # probably wanted for the "default" emulation. How to detect that?
++	  libs="${exec_prefix}/${target_alias}/lib${libpath_suffix}" ;;
+       esac
+     done
      libs="${exec_prefix}/${TOOL_LIB}/lib ${libs}"
-   fi
+@@ -214,24 +319,124 @@ if [ "${LIB_PATH}" != ":" ] ; then
    append_to_lib_path ${libs}
  fi
  
@@ -257,7 +257,6 @@ Index: b/ld/genscripts.sh
 +	LIB_SEARCH_DIRS="${LIB_SEARCH_DIRS}SEARCH_DIR(\"$dir\"); "
 +    done
 +fi
-+echo X3: $LIB_PATH
 +
  # We need it for testsuite.
  set $EMULATION_LIBPATH
@@ -266,7 +265,7 @@ Index: b/gold/Makefile.am
 ===================================================================
 --- a/gold/Makefile.am
 +++ b/gold/Makefile.am
-@@ -38,6 +38,7 @@ AM_CPPFLAGS = \
+@@ -42,6 +42,7 @@ AM_CPPFLAGS = \
  	-I$(srcdir) -I$(srcdir)/../include -I$(srcdir)/../elfcpp \
  	-DLOCALEDIR="\"$(datadir)/locale\"" \
  	-DBINDIR="\"$(bindir)\"" -DTOOLBINDIR="\"$(tooldir)/bin\"" \
@@ -278,7 +277,7 @@ Index: b/gold/configure
 ===================================================================
 --- a/gold/configure
 +++ b/gold/configure
-@@ -594,6 +594,7 @@ LTLIBOBJS
+@@ -625,6 +625,7 @@ LTLIBOBJS
  MAINT
  MAINTAINER_MODE_FALSE
  MAINTAINER_MODE_TRUE
@@ -286,7 +285,7 @@ Index: b/gold/configure
  DLOPEN_LIBS
  CXXCPP
  HAVE_NO_USE_LINKER_PLUGIN_FALSE
-@@ -7747,6 +7748,14 @@ $as_echo "#define HAVE_LC_MESSAGES 1" >>
+@@ -10170,6 +10171,14 @@ $as_echo "#define HAVE_LC_MESSAGES 1" >>
    fi
  
  
@@ -324,7 +323,7 @@ Index: b/gold/options.cc
 ===================================================================
 --- a/gold/options.cc
 +++ b/gold/options.cc
-@@ -1227,8 +1227,15 @@ General_options::finalize()
+@@ -1232,8 +1232,15 @@ General_options::finalize()
  	       || this->user_set_sysroot()
  	       || *TARGET_SYSTEM_ROOT != '\0')
  	{
@@ -344,7 +343,7 @@ Index: b/gold/Makefile.in
 ===================================================================
 --- a/gold/Makefile.in
 +++ b/gold/Makefile.in
-@@ -490,6 +490,7 @@ AM_CPPFLAGS = \
+@@ -685,6 +685,7 @@ AM_CPPFLAGS = \
  	-I$(srcdir) -I$(srcdir)/../include -I$(srcdir)/../elfcpp \
  	-DLOCALEDIR="\"$(datadir)/locale\"" \
  	-DBINDIR="\"$(bindir)\"" -DTOOLBINDIR="\"$(tooldir)/bin\"" \
