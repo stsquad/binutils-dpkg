@@ -1,3 +1,9 @@
+binutils (2.31.1-8) unstable; urgency=medium
+
+  * Enable s390x and ppc64el cross packages on arm64
+
+ -- Alex Bennée <alex.bennee@linaro.org>  Mon, 11 Feb 2019 20:34:00 +0000
+
 binutils (2.31.1-7) unstable; urgency=medium
 
   * Snapshot, taken from the 2.31 branch (20181018).

@@ -130,7 +130,7 @@ ifeq ($(src_name),binutils)
         CROSS_ARCHS += x32
       endif
     else ifeq ($(DEB_HOST_ARCH),arm64)
-      CROSS_ARCHS = armel armhf amd64 i386 x32
+      CROSS_ARCHS = armel armhf amd64 i386 x32 s390x ppc64el
     else ifeq ($(DEB_HOST_ARCH),ppc64)
       CROSS_ARCHS = ppc64el
     else ifeq ($(DEB_HOST_ARCH),ppc64el)
@@ -167,14 +167,16 @@ ifneq (,$(ADT_TEST_TRIGGERS))
 endif
 endif
 
+# This is the inverse of CROSS_ARCHES we select above, i.e. which hosts the
+# various cross targets are available on
 HOST_ARCHS_armhf = amd64 i386 x32 arm64 ppc64el
 HOST_ARCHS_armel = amd64 i386 x32 arm64 ppc64el
 HOST_ARCHS_arm64 = amd64 i386 x32 ppc64el
 HOST_ARCHS_mips = amd64 i386 x32
 HOST_ARCHS_mipsel = amd64 i386 x32
 HOST_ARCHS_powerpc = amd64 i386 x32 ppc64el
-HOST_ARCHS_ppc64el = amd64 i386 x32 ppc64
-HOST_ARCHS_s390x = amd64 i386 x32
+HOST_ARCHS_ppc64el = amd64 i386 x32 ppc64 arm64
+HOST_ARCHS_s390x = amd64 i386 x32 arm64
 HOST_ARCHS_amd64 = arm64 i386 ppc64el x32
 HOST_ARCHS_i386 = amd64 arm64 ppc64el x32
 HOST_ARCHS_ia64 = amd64 i386 x32
